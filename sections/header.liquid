@@ -142,7 +142,7 @@
       {% endif %}
       {% if section.settings.logo != blank %}
         <noscript>
-          <img class="logo__img" style="opacity: 1;" src="{{ section.settings.logo | img_url: '360x' }}" alt="{{ section.settings.logo.alt }}">
+          <img decoding="async" fetchpriority="high" width="{{ section.settings.logo.width }}" height="{{ section.settings.logo.height }}" class="logo__img" style="opacity: 1;" src="{{ section.settings.logo | img_url: '360x' }}" alt="{{ section.settings.logo.alt }}">
         </noscript>
       {% endif %}
     </a>

@@ -65,7 +65,7 @@
                   <div class="review__image__wrapper">
                     <div class="background-size-cover lazyload" data-bgset="{% render 'bgset', image: author_image %}"></div>
                     <noscript>
-                      <img src="{{ author_image | img_url: '540x540', crop: 'center' }}" alt="{{ author_image.alt | default: block.settings.title }}">
+                      <img loading="lazy" decoding="async" width="540" height="540" src="{{ author_image | img_url: '540x540', crop: 'center' }}" alt="{{ author_image.alt | default: block.settings.title }}">
                     </noscript>
                   </div>
                 </div>

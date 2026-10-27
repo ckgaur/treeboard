@@ -14,7 +14,7 @@
             <div class="timeline__image__wrapper">
               <div class="background-size-cover lazyload" data-bgset="{% render 'bgset', image: block.settings.image %}"></div>
               <noscript>
-                <img src="{{ block.settings.image | img_url: '540x540', crop: 'center' }}" alt="{{ block.settings.image.alt | default: block.settings.title }}">
+                <img loading="lazy" decoding="async" width="540" height="540" src="{{ block.settings.image | img_url: '540x540', crop: 'center' }}" alt="{{ block.settings.image.alt | default: block.settings.title }}">
               </noscript>
             </div>
           {% else %}
