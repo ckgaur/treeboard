@@ -1,0 +1,432 @@
+<!-- /sections/footer.liquid -->
+
+<footer
+  class="footer"
+  data-section-id="{{ section.id }}"
+  data-section-type="footer"
+  style="--PT: {{ section.settings.padding_top }}px; --PB: {{ section.settings.padding_bottom }}px; --footer-bg: {{ section.settings.bg_color }}; --footer-text: {{ section.settings.text_color }}; --footer-heading: {{ section.settings.heading_color }}; --footer-border: {{ section.settings.border_color }};"
+>
+  <div class="{{ section.settings.width }} section-padding">
+    <div class="footer__nav-grid">
+      {% for block in section.blocks %}
+        {% case block.type %}
+
+          {% when 'navigation' %}
+            <div class="footer__nav-col" {{ block.shopify_attributes }}>
+              {% if block.settings.heading != blank %}
+                <h4 class="footer__col-heading">{{ block.settings.heading }}</h4>
+              {% endif %}
+              {%- assign footer_linklist = linklists[block.settings.linklist] -%}
+              {% if footer_linklist.links.size > 0 %}
+                <ul class="footer__nav">
+                  {% for link in footer_linklist.links %}
+                    <li>
+                      <a href="{{ link.url }}">{{ link.title }}</a>
+                    </li>
+                  {% endfor %}
+                </ul>
+              {% endif %}
+            </div>
+
+          {% when 'contact' %}
+            <div class="footer__nav-col footer__contact-col" {{ block.shopify_attributes }}>
+              {% if block.settings.heading != blank %}
+                <h4 class="footer__col-heading">{{ block.settings.heading }}</h4>
+              {% endif %}
+
+              {% if block.settings.address != blank %}
+                <p class="footer__contact-row">
+                  <span class="footer__contact-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="24" height="24"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.3"/></svg>
+                  </span>
+                  <span>{{ block.settings.address }}</span>
+                </p>
+              {% endif %}
+
+              {% if block.settings.phone != blank %}
+                <p class="footer__contact-row">
+                  <span class="footer__contact-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="24" height="24"><path d="M3 5c0 9 7 16 16 16l3-4-6-3-2 2c-3-1.5-5-3.5-6.5-6.5l2-2-3-6L3 5z"/></svg>
+                  </span>
+                  <a href="tel:{{ block.settings.phone | remove: ' ' | remove: '(' | remove: ')' | remove: '-' }}">{{ block.settings.phone }}</a>
+                </p>
+              {% endif %}
+
+              {% if block.settings.email != blank %}
+                <p class="footer__contact-row">
+                  <span class="footer__contact-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="24" height="24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+                  </span>
+                  <a href="mailto:{{ block.settings.email }}">{{ block.settings.email }}</a>
+                </p>
+              {% endif %}
+
+              {% if block.settings.show_social %}
+                <div class="footer__social">
+                  {% if settings.social_instagram_link != blank %}
+                    <a href="{{ settings.social_instagram_link }}" class="footer__social-icon" aria-label="Instagram">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="24" height="24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg>
+                    </a>
+                  {% endif %}
+                  {% if settings.social_facebook_link != blank %}
+                    <a href="{{ settings.social_facebook_link }}" class="footer__social-icon" aria-label="Facebook">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="24" height="24"><circle cx="12" cy="12" r="9"/><path d="M14 8h-1.5A2.5 2.5 0 0 0 10 10.5V12H8v2.5h2V21h2.5v-6.5h2l.5-2.5h-2.5v-1a1 1 0 0 1 1-1H15V8z"/></svg>
+                    </a>
+                  {% endif %}
+                  {% if settings.social_youtube_link != blank %}
+                    <a href="{{ settings.social_youtube_link }}" class="footer__social-icon" aria-label="YouTube">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="24" height="24"><rect x="3" y="6" width="18" height="12" rx="4"/><path d="M10.5 9.5l5 2.5-5 2.5z" fill="currentColor" stroke="none"/></svg>
+                    </a>
+                  {% endif %}
+                  {% if settings.social_twitter_link != blank %}
+                    <a href="{{ settings.social_twitter_link }}" class="footer__social-icon" aria-label="Twitter">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="24" height="24"><path d="M22 5.9c-.7.3-1.5.6-2.3.7.8-.5 1.4-1.3 1.7-2.3-.8.5-1.7.8-2.6 1a4.1 4.1 0 0 0-7 3.7A11.6 11.6 0 0 1 3.4 4.6a4.1 4.1 0 0 0 1.3 5.5c-.6 0-1.3-.2-1.8-.5v.1a4.1 4.1 0 0 0 3.3 4 4.2 4.2 0 0 1-1.8.1 4.1 4.1 0 0 0 3.8 2.9A8.3 8.3 0 0 1 2 18.4a11.6 11.6 0 0 0 6.3 1.9c7.5 0 11.7-6.3 11.7-11.7v-.5c.8-.6 1.5-1.3 2-2.2z"/></svg>
+                    </a>
+                  {% endif %}
+                </div>
+              {% endif %}
+            </div>
+
+        {% endcase %}
+      {% endfor %}
+    </div>
+
+    <hr class="footer__divider">
+
+    <div class="footer__bottom">
+      {% if section.settings.show_copyright %}
+        <p class="footer__copyright">&copy; copyright {{ 'now' | date: '%Y' }} {{ section.settings.copyright_text | default: shop.name }}.</p>
+      {% endif %}
+
+      {% if section.settings.show_payment_icons %}
+        {% comment %} <ul class="footer__payment-icons" role="list">
+          {% for type in shop.enabled_payment_types %}
+            <li>{{ type | payment_type_svg_tag: class: 'icon' }}</li>
+          {% endfor %}
+        </ul> {% endcomment %}
+<ul class="footer__payment-icons" role="list">
+        <img src="https://cdn.shopify.com/s/files/1/0807/9133/9240/files/Container.png?v=1789638215" class="pay-img" style="height: 35px;"/>
+    </ul>
+      {% endif %}
+    </div>
+  </div>
+</footer>
+
+{% style %}
+  .footer {
+    background-color: var(--footer-bg, #14161a);
+    color: var(--footer-text, rgba(255,255,255,0.7));
+    padding-top: var(--PT, 64px);
+    padding-bottom: var(--PB, 32px);
+  }
+
+  .footer a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .footer a:hover {
+    color: #fff;
+  }
+
+  .footer__nav-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 32px;
+  }
+
+  .footer__col-heading {
+    color: var(--footer-heading, #fff);
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 0 0 18px;
+  }
+
+  .footer__nav {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    text-align: left;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .footer__nav li a {
+    font-size: 0.9rem;
+
+  }
+
+  .footer__contact-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 0.9rem;
+    margin: 0 0 14px;
+
+    line-height: 1.4;
+  }
+
+  .footer__contact-icon {
+    flex: none;
+    margin-top: 2px;
+  }
+
+  .footer__social {
+    display: flex;
+    gap: 12px;
+    margin-top: 8px;
+  }
+
+  .footer__social-icon {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .footer__divider {
+    border: none;
+    border-top: 1px solid var(--footer-border, rgba(255,255,255,0.15));
+    margin: 40px 0 24px;
+  }
+
+  .footer__bottom {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    flex-wrap: wrap;
+    position: relative;
+  }
+
+  .footer__copyright {
+    margin: 0;
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.55);
+  }
+
+  .footer__payment-icons {
+    list-style: none;
+    display: flex;
+    gap: 8px;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    right: 0;
+  }
+
+  .footer__payment-icons .icon {
+    width: 34px;
+    height: auto;
+    border-radius: 4px;
+  }
+
+  @media screen and (max-width: 989px) {
+    .footer__nav-grid {
+      grid-template-columns: repeat(2, 1fr);
+      row-gap: 40px;
+    }
+
+    .footer__bottom {
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .footer__payment-icons {
+      position: static;
+    }
+  }
+
+  @media screen and (max-width: 549px) {
+    .footer__nav-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+{% endstyle %}
+
+{% schema %}
+{
+  "name": "Footer",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background color",
+      "default": "#14161a"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#b3b3b3"
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Divider color",
+      "default": "#2a2c31"
+    },
+    {
+      "type": "header",
+      "content": "Bottom bar"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_copyright",
+      "label": "Show copyright",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "copyright_text",
+      "label": "Copyright text",
+      "default": "Treeboard"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_payment_icons",
+      "label": "Show payment icons",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Section spacing"
+    },
+    {
+      "type": "select",
+      "id": "width",
+      "label": "Width",
+      "default": "wrapper",
+      "options": [
+        {"value": "wrapper--full", "label": "Full width padded"},
+        {"value": "wrapper", "label": "Page width"}
+      ]
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 180,
+      "step": 2,
+      "unit": "px",
+      "label": "Padding top",
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 180,
+      "step": 2,
+      "unit": "px",
+      "label": "Padding bottom",
+      "default": 32
+    }
+  ],
+  "blocks": [
+    {
+      "type": "navigation",
+      "name": "Navigation column",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Navigate"
+        },
+        {
+          "type": "link_list",
+          "id": "linklist",
+          "label": "Menu",
+          "info": "This menu won't show dropdown items"
+        }
+      ]
+    },
+    {
+      "type": "contact",
+      "name": "Contact column",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Contact"
+        },
+        {
+          "type": "text",
+          "id": "address",
+          "label": "Address",
+          "default": "Treeboard LLC 1131 Taft St. Rockville, MD 20850"
+        },
+        {
+          "type": "text",
+          "id": "phone",
+          "label": "Phone",
+          "default": "(301) 421-0263"
+        },
+        {
+          "type": "text",
+          "id": "email",
+          "label": "Email"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_social",
+          "label": "Show social icons",
+          "info": "Pulls links from Theme settings > Social media",
+          "default": true
+        }
+      ]
+    }
+  ],
+  "max_blocks": 8,
+  "default": {
+    "blocks": [
+      {
+        "type": "navigation",
+        "settings": {
+          "heading": "Navigate",
+          "linklist": "main-menu"
+        }
+      },
+      {
+        "type": "navigation",
+        "settings": {
+          "heading": "Categories",
+          "linklist": "footer"
+        }
+      },
+      {
+        "type": "navigation",
+        "settings": {
+          "heading": "My Account",
+          "linklist": "footer"
+        }
+      },
+      {
+        "type": "contact",
+        "settings": {
+          "heading": "Contact"
+        }
+      }
+    ]
+  },
+  "enabled_on": {
+    "groups": ["footer"]
+  }
+}
+{% endschema %}

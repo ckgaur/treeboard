@@ -1,0 +1,320 @@
+<!-- /sections/section-newsletter.liquid -->
+
+<div
+  class="newsletter {{ section.settings.color_bg }} {{ section.settings.text_color }}"
+  data-section-id="{{ section.id }}"
+  data-section-type="newsletter"
+  style="--PT: {{ section.settings.padding_top }}px; --PB: {{ section.settings.padding_bottom }}px;"
+>
+  <div class="{{ section.settings.width }} section-padding">
+    <div class="newsletter__wrapper">
+      <div class="newsletter__content">
+        {% if section.settings.title != '' %}
+          <h2 class="h3 newsletter__title">{{ section.settings.title | escape }}</h2>
+        {% endif %}
+        {% if section.settings.richtext != blank %}
+          <div class="newsletter__text rte subtitle--decorated">
+            {{ section.settings.richtext }}
+          </div>
+        {% endif %}
+      </div>
+      <div class="newsletter__button">
+        {% if section.settings.enable_klaviyo %}
+          <div class="klaviyo-form-RmNUFv"></div>
+        {% else %}
+        {% assign unique = 'default-newsletter-' | append: section.id %}
+        {% render 'newsletter-form', unique: unique, show_discount_message: true, success_text: section.settings.success, color: section.settings.button_color, style: section.settings.button_style %}
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% style %}
+  .newsletter {
+    background-color: #075E3D;
+    color: #ffffff;
+    padding-top: var(--PT, 40px);
+    padding-bottom: var(--PB, 40px);
+  }
+
+  .newsletter__wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+    flex-wrap: wrap;
+    background: transparent;
+  }
+
+  .newsletter__content {
+    flex: 1 1 340px;
+    min-width: 260px;
+  }
+
+  .newsletter__title {
+    margin: 0 0 8px;
+    font-size: 1.75rem;
+    font-weight: 700;
+    line-height: 1.2;
+    color: inherit;
+  }
+
+  .newsletter__text {
+    margin: 0;
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.85);
+  }
+
+  .newsletter__text p {
+    margin: 0;
+  }
+
+  .newsletter__button {
+    flex: 1 1 420px;
+    max-width: 640px;
+    bottom: 0px;
+    width: 100%;
+  }
+
+  /* Newsletter form (snippets/newsletter-form.liquid markup) */
+  .newsletter__button form[data-newsletter-form] {
+    width: 100%;
+  }
+
+  .newsletter__button .input-group.newsletter-form {
+    display: flex;
+    align-items: stretch;
+    width: 100%;
+    background-color: #ffffff;
+    border-radius: 4px;
+    overflow: hidden;
+    border: 1px solid #ffffff;
+  }
+
+  .newsletter__button .input-group.newsletter-form input[type="email"],
+  .newsletter__button .input-group.newsletter-form input[type="text"] {
+    flex: 1 1 auto;
+    border: none;
+    background: transparent;
+    padding: 6px 20px;
+    font-size: 0.95rem;
+    color: #000;
+    outline: none;
+    min-width: 0;
+  }
+
+  .newsletter__button .input-group.newsletter-form input::placeholder {
+    color: #6b6b6b;
+  }
+
+  .newsletter__button .input-group.newsletter-form button,
+  .newsletter__button .input-group.newsletter-form input[type="submit"] {
+    flex: none;
+    border: 2px solid #075E3D;
+    background-color: #075E3D;
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 0.95rem;
+    padding: 9px 36px;
+    margin: 0px 6px 6px 0;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease;
+    white-space: nowrap;
+  }
+
+  .newsletter__button .input-group.newsletter-form button:hover,
+  .newsletter__button .input-group.newsletter-form input[type="submit"]:hover {
+    background-color: #ffffff;
+    color: #075E3D;
+  }
+
+  .newsletter__button .newsletter_message,
+  .newsletter__button .newsletter__message {
+    width: 100%;
+    color: #ffffff;
+    margin-top: 10px;
+    font-size: 0.9rem;
+  }
+
+  .newsletter__button .newsletter__message--error {
+    color: #ffd7d7;
+  }
+
+  @media screen and (max-width: 749px) {
+    .newsletter__wrapper {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 24px;
+    }
+
+    .newsletter__button {
+      max-width: 100%;
+    }
+
+    .newsletter__button .input-group.newsletter-form {
+      flex-direction: column;
+      background-color: transparent;
+      border: none;
+      gap: 12px;
+    }
+
+    .newsletter__button .input-group.newsletter-form input[type="email"],
+    .newsletter__button .input-group.newsletter-form input[type="text"] {
+      background-color: #ffffff;
+      border-radius: 4px;
+      padding: 14px 16px;
+    }
+
+    .newsletter__button .input-group.newsletter-form button,
+    .newsletter__button .input-group.newsletter-form input[type="submit"] {
+      margin: 0;
+      width: 100%;
+      text-align: center;
+    }
+  }
+{% endstyle %}
+
+
+{% schema %}
+{
+  "name": "Newsletter",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "enable_klaviyo",
+      "label": "Enable Klaviyo Form",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Newsletter"
+    },
+    {
+      "id": "richtext",
+      "type": "richtext",
+      "label": "Text",
+      "default": "<p>Subscribe to get special offers, free giveaways, and once-in-a-lifetime deals.  We promise to send emails you will love.</p>"
+    },
+    {
+      "type": "textarea",
+      "id": "success",
+      "label": "Success message",
+      "default": "Success! Use code CLUB10 to save 10%",
+      "info": "Include your discount code and a message to be displayed."
+    },
+    {
+      "type": "header",
+      "content": "Style"
+    },
+    {
+      "type": "select",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "text--neutral",
+      "options": [
+        {"value": "text--neutral", "label": "Normal text"},
+        {"value": "text--white", "label": "White"},
+        {"value": "text--primary", "label": "Primary accent"},
+        {"value": "text--secondary", "label": "Secondary accent"},
+        {"value": "text--black", "label": "Black"},
+        {"value": "text--invert--primary", "label": "Primary dark accent"},
+        {"value": "text--invert--secondary", "label": "Secondary dark accent"},
+        {"value": "text--invert", "label": "Inverted text color"}
+      ]
+    },
+    {
+      "type": "select",
+      "id": "color_bg",
+      "label": "Background color",
+      "default": "palette--light bg--neutral",
+      "options": [
+        {"value": "palette--light bg--neutral", "label": "Default"},
+        {"value": "palette--light bg--accent", "label": "Light"},
+        {"value": "palette--dark bg--invert", "label": "Dark"},
+        {"value": "palette--dark bg--invert--accent", "label": "Dark accent"}
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Button"
+    },
+    {
+      "type": "select",
+      "id": "button_color",
+      "label": "Button color",
+      "default": "btn--neutral",
+      "options": [
+        {"value": "btn--primary", "label": "Bright accent"},
+        {"value": "btn--secondary", "label": "Secondary accent"},
+        {"value": "btn--neutral", "label": "Text color"},
+        {"value": "btn--black", "label": "Black"},
+        {"value": "btn--white", "label": "White"}
+      ]
+    },
+    {
+      "type": "select",
+      "id": "button_style",
+      "label": "Button style",
+      "default": "btn--soft",
+      "options": [
+        {"value": "border-bottom-link", "label": "Plain text"},
+        {"value": "btn", "label": "Solid button"},
+        {"value": "btn--soft", "label": "Soft button"},
+        {"value": "btn--outline", "label": "Outlined button"}
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": "Subscribers are under 'Accepts Marketing' in your [customer admin](/admin/customers)."
+    },
+    {
+      "type": "header",
+      "content": "Section spacing"
+    },
+    {
+      "type": "select",
+      "id": "width",
+      "label": "Width",
+      "default": "wrapper",
+      "options": [
+        {"value": "wrapper--full", "label": "Full width padded"},
+        {"value": "wrapper", "label": "Page width"},
+        {"value": "wrapper--narrow", "label": "Page width narrow"}
+      ]
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 180,
+      "step": 2,
+      "unit": "px",
+      "label": "Padding top",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 180,
+      "step": 2,
+      "unit": "px",
+      "label": "Padding bottom",
+      "default": 36
+    }
+  ],
+  "presets": [
+    {
+      "name": "Newsletter",
+      "category": "Text"
+    }
+  ],
+  "disabled_on": {
+    "groups": ["header", "aside"]
+  }
+}
+{% endschema %}

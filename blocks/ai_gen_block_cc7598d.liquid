@@ -1,0 +1,261 @@
+
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+{% style %}
+  .ai-mobile-slider-{{ ai_gen_id }}{display:block;width:{{ block.settings.desktop_width_percent }}%;max-width:100%;height:{{ block.settings.section_height }}px;background:{{ block.settings.background_color }};overflow:hidden}.ai-mobile-slider__track-{{ ai_gen_id }}{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));height:100%}.ai-mobile-slider__item-{{ ai_gen_id }}{position:relative;display:flex;align-items:center;gap:10px;padding:12px 14px;min-width:0;justify-content: center;}.ai-mobile-slider__item-{{ ai_gen_id }}:not(:last-child):after{content:'';position:absolute;top:25%;right:0;width:1px;height:50%;background:#000}.ai-mobile-slider__image-{{ ai_gen_id }}{flex:0 0 {{ block.settings.image_size }}px;width:{{ block.settings.image_size }}px;height:{{ block.settings.image_size }}px;background:{{ block.settings.image_background }};border-radius:{{ block.settings.image_radius }}px;overflow:hidden}.ai-mobile-slider__image-{{ ai_gen_id }} img,.ai-mobile-slider__image-{{ ai_gen_id }} svg{width:100%;height:100%;object-fit:cover}.ai-mobile-slider__heading-{{ ai_gen_id }}{margin:0 0 4px;color:{{ block.settings.heading_color }};font-size:{{ block.settings.heading_size }}px}.ai-mobile-slider__text-{{ ai_gen_id }}{color:{{ block.settings.text_color }};font-size:{{ block.settings.text_size }}px}.ai-mobile-slider__text-{{ ai_gen_id }} p{margin:0}.ai-mobile-slider__controls-{{ ai_gen_id }}{display:none}@media(max-width:749px){.ai-mobile-slider-{{ ai_gen_id }}{height:auto}.ai-mobile-slider__track-{{ ai_gen_id }}{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;height:{{ block.settings.section_height }}px}.ai-mobile-slider__track-{{ ai_gen_id }}::-webkit-scrollbar{display:none}.ai-mobile-slider__item-{{ ai_gen_id }}{flex:0 0 100%;scroll-snap-align:start;box-sizing:border-box}.ai-mobile-slider__item-{{ ai_gen_id }}:not(:last-child):after{top:auto;right:10%;bottom:0;width:80%;height:1px}.ai-mobile-slider__controls-{{ ai_gen_id }}{display:flex;position:absolute;right:10px;bottom:8px;gap:6px}.ai-mobile-slider-{{ ai_gen_id }}{position:relative}.ai-mobile-slider__button-{{ ai_gen_id }}{width:28px;height:28px;border:1px solid #171c25;border-radius:50%;background:{{ block.settings.background_color }};color:#171c25;cursor:pointer}}
+{% endstyle %}
+<mobile-info-slider-{{ ai_gen_id }}
+  class="ai-mobile-slider-{{ ai_gen_id }} wrapper section-padding"
+  {{ block.shopify_attributes }}
+>
+<div class="ai-mobile-slider__track-{{ ai_gen_id }}">
+  {% for i in (1..5) -%}
+    {%- assign image_key = 'column_' | append: i | append: '_image' -%}
+    {%- assign heading_key = 'column_' | append: i | append: '_heading' -%}
+    {%- assign text_key = 'column_' | append: i | append: '_text' -%}
+    {%- assign image = block.settings[image_key] -%}
+    {%- assign heading = block.settings[heading_key] -%}
+    {%- assign text = block.settings[text_key] -%}
+
+    {% if heading_key != blank %}
+      <div class="ai-mobile-slider__item-{{ ai_gen_id }}">
+        
+        <div class="ai-mobile-slider__image-{{ ai_gen_id }}">
+          {% if image %}
+            <img
+              src="{{ image | image_url: width: 200 }}"
+              alt="{{ image.alt | escape }}"
+              loading="lazy"
+            >
+          {% else %}
+            {{ 'image' | placeholder_svg_tag }}
+          {% endif %}
+        </div>
+        <div>
+          {% if heading != blank %}
+            <h2 class="ai-mobile-slider__heading-{{ ai_gen_id }}">
+              {{ heading | escape }}
+            </h2>
+          {% endif %}
+
+          <div class="ai-mobile-slider__text-{{ ai_gen_id }}">
+            {{ text }}
+          </div>
+        </div>
+
+      </div>
+    {% endif %}
+  {% endfor %}
+</div>
+
+  <div class="ai-mobile-slider__controls-{{ ai_gen_id }}">
+    <button class="ai-mobile-slider__button-{{ ai_gen_id }}" type="button" data-dir="prev" aria-label="Previous">
+      ‹</button
+    ><button class="ai-mobile-slider__button-{{ ai_gen_id }}" type="button" data-dir="next" aria-label="Next">›</button>
+  </div>
+</mobile-info-slider-{{ ai_gen_id }}>
+<script>
+  (function(){class MobileInfoSlider{{ ai_gen_id }} extends HTMLElement{connectedCallback(){this.t=this.querySelector('.ai-mobile-slider__track-{{ ai_gen_id }}');this.querySelectorAll('[data-dir]').forEach(b=>b.addEventListener('click',()=>this.t.scrollBy({left:(b.dataset.dir==='next'?1:-1)*this.t.clientWidth,behavior:'smooth'})))}}customElements.define('mobile-info-slider-{{ ai_gen_id }}',MobileInfoSlider{{ ai_gen_id }})})();
+</script>
+{% schema %}
+{
+  "name": "Mobile info slider",
+  "settings": [
+    {
+      "type": "range",
+      "id": "desktop_width_percent",
+      "label": "Desktop width",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "section_height",
+      "label": "Section height",
+      "min": 100,
+      "max": 150,
+      "step": 5,
+      "unit": "px",
+      "default": 120
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#f2f5fa"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading",
+      "default": "#171c25"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#171c25"
+    },
+    {
+      "type": "color",
+      "id": "image_background",
+      "label": "Image background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "image_size",
+      "label": "Image size",
+      "min": 32,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "image_radius",
+      "label": "Image corners",
+      "min": 0,
+      "max": 24,
+      "step": 2,
+      "unit": "px",
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Heading size",
+      "min": 12,
+      "max": 28,
+      "step": 2,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "text_size",
+      "label": "Text size",
+      "min": 10,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 13
+    },
+    {
+      "type": "header",
+      "content": "Column 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "column_1_image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "column_1_heading",
+      "label": "Heading",
+      "default": "Free shipping"
+    },
+    {
+      "type": "richtext",
+      "id": "column_1_text",
+      "label": "Text",
+      "default": "<p>On orders over $75</p>"
+    },
+    {
+      "type": "header",
+      "content": "Column 2"
+    },
+    {
+      "type": "image_picker",
+      "id": "column_2_image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "column_2_heading",
+      "label": "Heading",
+      "default": "Easy returns"
+    },
+    {
+      "type": "richtext",
+      "id": "column_2_text",
+      "label": "Text",
+      "default": "<p>30-day hassle-free returns</p>"
+    },
+    {
+      "type": "header",
+      "content": "Column 3"
+    },
+    {
+      "type": "image_picker",
+      "id": "column_3_image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "column_3_heading",
+      "label": "Heading",
+      "default": "Secure checkout"
+    },
+    {
+      "type": "richtext",
+      "id": "column_3_text",
+      "label": "Text",
+      "default": "<p>Your payment is protected</p>"
+    },
+    {
+      "type": "header",
+      "content": "Column 4"
+    },
+    {
+      "type": "image_picker",
+      "id": "column_4_image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "column_4_heading",
+      "label": "Heading",
+      "default": "Helpful support"
+    },
+    {
+      "type": "richtext",
+      "id": "column_4_text",
+      "label": "Text",
+      "default": "<p>We are here when you need us</p>"
+    },
+    {
+      "type": "header",
+      "content": "Column 5"
+    },
+    {
+      "type": "image_picker",
+      "id": "column_5_image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "column_5_heading",
+      "label": "Heading",
+      "default": "Quality assured"
+    },
+    {
+      "type": "richtext",
+      "id": "column_5_text",
+      "label": "Text",
+      "default": "<p>Made with care for you</p>"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Mobile info slider"
+    }
+  ],
+  "tag": null,
+  "class": "mobile-info-slider-block"
+}
+ {% endschema %}
