@@ -97,7 +97,7 @@
       {{ badge }}
     </div>
     <noscript>
-      <img src="{{ product.featured_media.preview_image | img_url: '360x' }}" alt="{{ product.featured_media.preview_image.alt | default: product.title | strip_html | escape }}">
+      <img loading="lazy" decoding="async" width="{{ product.featured_media.preview_image.width }}" height="{{ product.featured_media.preview_image.height }}" src="{{ product.featured_media.preview_image | img_url: '360x' }}" alt="{{ product.featured_media.preview_image.alt | default: product.title | strip_html | escape }}">
     </noscript>
 
     <div class="grid__caption {{ align_text }}">

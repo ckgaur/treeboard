@@ -965,3 +965,19 @@ div.stamped-container[data-widget-style], div[data-widget-style] div.stamped-con
 }
 
 }
+
+/* ===== Speed: section-wise lazy rendering =====
+   Off-screen sections skip layout/style/paint until they near the viewport.
+   Limited to sections with no carousel/slider JS that measures its width. */
+.shopify-section-group-group-footer,
+.main-content > .shopify-section:has([data-section-type="accordion"]),
+.main-content > .shopify-section:has([data-section-type="newsletter"]),
+.main-content > .shopify-section:has([data-section-type="logo-list"]),
+.main-content > .shopify-section:has([data-section-type="section-text"]),
+.main-content > .shopify-section:has([data-section-type="section-map"]),
+.main-content > .shopify-section:has([data-section-type="section-icons"]),
+.main-content > .shopify-section:has([data-section-type="video-player"]),
+.main-content > .shopify-section:has([data-section-type="press"]) {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 500px;
+}

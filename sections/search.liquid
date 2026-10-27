@@ -80,7 +80,7 @@
                           data-sizes="auto"/>
                       </a>
                       <noscript>
-                        <img src="{{ featured_image | img_url: '70x' }}" alt="{{ item.featured_media.preview_image.alt | default: item.title | strip_html | escape }}">
+                        <img loading="lazy" decoding="async" src="{{ featured_image | img_url: '70x' }}" alt="{{ item.featured_media.preview_image.alt | default: item.title | strip_html | escape }}">
                       </noscript>
                     </div>
                   </div>

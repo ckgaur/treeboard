@@ -42,7 +42,7 @@
                 </div>
               </div>
               <noscript>
-                <img src="{{ block.settings.image | img_url: '160x' }}" alt="{{ block.settings.image.alt | default: section.settings.title }}">
+                <img loading="lazy" decoding="async" width="{{ block.settings.image.width }}" height="{{ block.settings.image.height }}" src="{{ block.settings.image | img_url: '160x' }}" alt="{{ block.settings.image.alt | default: section.settings.title }}">
               </noscript>
             {% else %}
               {{ 'logo' | placeholder_svg_tag: 'placeholder-svg' }}

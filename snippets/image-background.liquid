@@ -59,6 +59,6 @@
     </div>
   </div>
   <noscript>
-    <img src="{{ image | img_url: '720x' }}" alt="{{ image.alt }}" class="responsive-wide-image">
+    <img loading="lazy" decoding="async" src="{{ image | img_url: '720x' }}" alt="{{ image.alt }}" class="responsive-wide-image">
   </noscript>
 </div>

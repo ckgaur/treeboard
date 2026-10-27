@@ -70,7 +70,7 @@
               <div class="background-size-cover lazyload" data-bgset="{% render 'bgset', image: article.image %}"></div>
             {% endif %}
             <noscript>
-              <img src="{{ article.image | img_url: '720x' }}" alt="{{ article.image.alt | default: article.title }}" class="responsive-wide-image">
+              <img loading="lazy" decoding="async" width="{{ article.image.width }}" height="{{ article.image.height }}" src="{{ article.image | img_url: '720x' }}" alt="{{ article.image.alt | default: article.title }}" class="responsive-wide-image">
             </noscript>
           </div>
         {% endif %}
