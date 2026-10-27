@@ -9,7 +9,6 @@
 */
 
 (function () {
-  console.log("test");
   var MQ = window.matchMedia('(max-width: 1023px)');
   var DELAY = 3500;
   var sliders = [];

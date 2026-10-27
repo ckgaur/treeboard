@@ -52,11 +52,28 @@
 
 
  <!-- Google Tag Manager -->
-        <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-        })(window,document,'script','dataLayer','GTM-TH7JF6ZC');</script>
+        <script>
+  // Speed: GTM loads after first user interaction (or 5s fallback), not during page load
+  window.dataLayer = window.dataLayer || [];
+  window.ebLoadDelayed = function (fn, timeout) {
+    var done = false;
+    var events = ['scroll', 'pointerdown', 'keydown', 'touchstart', 'mousemove'];
+    function run() {
+      if (done) return;
+      done = true;
+      events.forEach(function (e) { window.removeEventListener(e, run); });
+      fn();
+    }
+    events.forEach(function (e) { window.addEventListener(e, run, { passive: true, once: true }); });
+    window.addEventListener('load', function () { setTimeout(run, timeout || 5000); });
+  };
+  window.ebLoadDelayed(function () {
+    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});
+    var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';
+    j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-TH7JF6ZC');
+  });
+</script>
 <!-- End Google Tag Manager -->
 
 
@@ -78,7 +95,7 @@
             script.src = 'https://www.googletagmanager.com/gtag/js?id=G-JF50FD8LSK';
             script.async = true;
             script.onload = configureGtag;
-            document.head.appendChild(script);
+            window.ebLoadDelayed(function () { document.head.appendChild(script); });
         }
         setupGtag();
         if (typeof subscribeOnBodlEvents === 'function') {

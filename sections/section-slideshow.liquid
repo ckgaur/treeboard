@@ -1,5 +1,15 @@
 <!-- /sections/section-slideshow.liquid -->
 
+{%- assign first_slide = section.blocks.first -%}
+{%- if first_slide.settings.image != blank -%}
+  {%- if first_slide.settings.mobile_image != blank -%}
+    <link rel="preload" as="image" href="{{ first_slide.settings.mobile_image | img_url: '1296x' }}" media="(max-width: 767px)" fetchpriority="high">
+    <link rel="preload" as="image" href="{{ first_slide.settings.image | img_url: '1296x' }}" media="(min-width: 768px)" fetchpriority="high">
+  {%- else -%}
+    <link rel="preload" as="image" href="{{ first_slide.settings.image | img_url: '1296x' }}" fetchpriority="high">
+  {%- endif -%}
+{%- endif -%}
+
 <div
   class="homepage-slideshow {{ section.settings.dots_position }}{% if settings.radius_images == 'rounded' %} homepage-slideshow--rounded{% endif %}"
   data-section-id="{{ section.id }}"
@@ -98,11 +108,11 @@
                 {% assign desktop_image_classes = desktop_image_classes | append: ' medium-up--show hide' %}
 
                 {% capture mobile_image %}
-                {% render 'image-background', img_object: block.settings.mobile_image, frame_height_class: mobile_image_classes %}
+                {% render 'image-background', img_object: block.settings.mobile_image, frame_height_class: mobile_image_classes, eager: forloop.first %}
               {% endcapture %}
               {% endif %}
 
-              {% render 'image-background', img_object: block.settings.image, frame_height_class: desktop_image_classes %}
+              {% render 'image-background', img_object: block.settings.image, frame_height_class: desktop_image_classes, eager: forloop.first %}
 
               {% if mobile_image != '' %}
                 {{ mobile_image }}
