@@ -39,13 +39,23 @@
         data-parallax-img
       {% endif %}
     >
-      <div
-        class="background-size-cover lazyload"
-        data-bgset="{% render 'bgset', image: image %}"
-        style="background-position: {{ image.presentation.focal_point | default: '50.0% 50.0%' }};"
-        role="img"
-        aria-label="{{ image.alt | strip_html | escape }}"
-      ></div>
+      {%- if eager and image.width != blank -%}
+        {% comment %} LCP image: load immediately instead of waiting for lazysizes {% endcomment %}
+        <div
+          class="background-size-cover lazyloaded"
+          style="background-position: {{ image.presentation.focal_point | default: '50.0% 50.0%' }}; background-image: url('{{ image | img_url: '1296x' }}');"
+          role="img"
+          aria-label="{{ image.alt | strip_html | escape }}"
+        ></div>
+      {%- else -%}
+        <div
+          class="background-size-cover lazyload"
+          data-bgset="{% render 'bgset', image: image %}"
+          style="background-position: {{ image.presentation.focal_point | default: '50.0% 50.0%' }};"
+          role="img"
+          aria-label="{{ image.alt | strip_html | escape }}"
+        ></div>
+      {%- endif -%}
     </div>
   </div>
   <noscript>
