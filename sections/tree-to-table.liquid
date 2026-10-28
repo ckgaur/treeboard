@@ -6,13 +6,30 @@
         {% if section.settings.video_url != blank %}
           <div class="tree-to-table-section__embed">
             {% if section.settings.video_url.type == 'youtube' %}
-              <iframe
-                src="https://www.youtube.com/embed/{{ section.settings.video_url.id }}"
-                title="{{ section.settings.heading | escape }}"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen
-                loading="lazy"
-              ></iframe>
+              {%- comment -%} Speed: load the YouTube player only after click {%- endcomment -%}
+              <button
+                type="button"
+                class="yt-facade"
+                aria-label="Play video: {{ section.settings.heading | escape }}"
+                data-yt-id="{{ section.settings.video_url.id }}"
+                data-yt-title="{{ section.settings.heading | escape }}"
+                style="position:absolute;inset:0;width:100%;height:100%;padding:0;border:0;cursor:pointer;background:#000 url('https://i.ytimg.com/vi/{{ section.settings.video_url.id }}/hqdefault.jpg') center/cover no-repeat;"
+              >
+                <svg viewBox="0 0 68 48" width="68" height="48" aria-hidden="true" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%)"><path d="M66.5 7.7a8.5 8.5 0 0 0-6-6C55.2.2 34 .2 34 .2S12.8.2 7.5 1.7a8.5 8.5 0 0 0-6 6C0 13 0 24 0 24s0 11 1.5 16.3a8.5 8.5 0 0 0 6 6C12.8 47.8 34 47.8 34 47.8s21.2 0 26.5-1.5a8.5 8.5 0 0 0 6-6C68 35 68 24 68 24s0-11-1.5-16.3z" fill="#f00"/><path d="M45 24 27 14v20" fill="#fff"/></svg>
+              </button>
+              <script>
+                (function () {
+                  var b = document.currentScript.previousElementSibling;
+                  b.addEventListener('click', function () {
+                    var f = document.createElement('iframe');
+                    f.src = 'https://www.youtube.com/embed/' + b.dataset.ytId + '?autoplay=1';
+                    f.title = b.dataset.ytTitle;
+                    f.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+                    f.allowFullscreen = true;
+                    b.replaceWith(f);
+                  });
+                })();
+              </script>
             {% elsif section.settings.video_url.type == 'vimeo' %}
               <iframe
                 src="https://player.vimeo.com/video/{{ section.settings.video_url.id }}"
