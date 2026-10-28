@@ -17,6 +17,23 @@
   <link rel="preconnect" href="https://fonts.shopify.com" crossorigin>
   <link rel="preconnect" href="https://monorail-edge.shopifysvc.com" crossorigin>
 
+  <script>
+    // Speed: run a callback after first user interaction (or 5s after load)
+    window.dataLayer = window.dataLayer || [];
+    window.ebLoadDelayed = window.ebLoadDelayed || function (fn, timeout) {
+      var done = false;
+      var events = ['scroll', 'pointerdown', 'keydown', 'touchstart', 'mousemove'];
+      function run() {
+        if (done) return;
+        done = true;
+        events.forEach(function (e) { window.removeEventListener(e, run); });
+        fn();
+      }
+      events.forEach(function (e) { window.addEventListener(e, run, { passive: true, once: true }); });
+      window.addEventListener('load', function () { setTimeout(run, timeout || 5000); });
+    };
+  </script>
+
   <link rel="preload" href="{{ 'theme.css' | asset_url }}" as="style">
   <link rel="preload" href="{{ 'custom.css' | asset_url }}" as="style">
   {% if settings.favicon != blank %}
@@ -152,17 +169,6 @@
   <script src="{{ 'lazysizes.js' | asset_url }}" async="async"></script>
   <script src="{{ 'vendor.js' | asset_url }}" defer="defer"></script>
   <script src="{{ 'theme.js' | asset_url }}" defer="defer"></script>
-
-  <script type="text/javascript">
-    if (window.MSInputMethodContext && document.documentMode) {
-      var scripts = document.getElementsByTagName('script')[0];
-      var polyfill = document.createElement('script');
-      polyfill.defer = true;
-      polyfill.src = "{{ 'ie11.js' | asset_url }}";
-
-      scripts.parentNode.insertBefore(polyfill, scripts);
-    }
-  </script>
 
   {% if template == 'gift_card' %}
     <script src="{{ 'vendor/qrcode.js' | shopify_asset_url }}" defer="defer"></script>
