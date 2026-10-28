@@ -93,7 +93,6 @@
     document.querySelectorAll('[data-ticker-frame]').forEach(function (frame) {
       sliders.push(new TickerSlider(frame));
     });
-    console.log('[ticker-slider] initialised:', sliders.length);
   }
 
   // Run no matter when this script loads, then again after the theme's JS has run
