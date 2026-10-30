@@ -69,7 +69,8 @@
                   <div class="standard__image">
                     {%- if block.settings.image_bottom_link != blank -%}<a href="{{ block.settings.image_bottom_link }}">{%- endif -%}
                     <img
-                      loading="lazy"
+                      {% if forloop.first %}loading="eager" fetchpriority="high"{% else %}loading="lazy"{% endif %}
+                      decoding="async"
                       width="{{ block.settings.image_bottom.width }}"
                       height="{{ block.settings.image_bottom.height }}"
                       alt="{{ block.settings.image_bottom.alt | strip_html | escape }}"
