@@ -173,19 +173,54 @@
     });
   </script>
 
-  {%- if request.page_type contains 'customers/' -%}
-    <script src="{{ 'shopify_common.js' | shopify_asset_url }}" defer="defer"></script>
-  {%- endif -%}
+  <!-- Theme Javascript (delayed: first interaction or setTimeout fallback) ========== -->
+  <script>
+    window.ebLoadDelayed(function () {
+      var srcs = [];
+      {%- if request.page_type contains 'customers/' %}
+      srcs.push('{{ 'shopify_common.js' | shopify_asset_url }}');
+      {%- endif %}
+      srcs.push('{{ 'lazysizes.js' | asset_url }}');
+      srcs.push('{{ 'vendor.js' | asset_url }}');
+      srcs.push('{{ 'theme.js' | asset_url }}');
+      {%- if template == 'gift_card' %}
+      srcs.push('{{ 'vendor/qrcode.js' | shopify_asset_url }}');
+      srcs.push('{{ 'giftcard.js' | asset_url }}');
+      {%- endif %}
+      srcs.push('{{ 'custom.js' | asset_url }}');
 
-  <!-- Theme Javascript ============================================================== -->
-  <script src="{{ 'lazysizes.js' | asset_url }}" async="async"></script>
-  <script src="{{ 'vendor.js' | asset_url }}" defer="defer"></script>
-  <script src="{{ 'theme.js' | asset_url }}" defer="defer"></script>
+      // Scripts loaded after DOMContentLoaded would miss their own DOMContentLoaded
+      // handlers, so capture those (only from our scripts) and replay them once loaded.
+      var origAdd = document.addEventListener;
+      var queued = [];
+      document.addEventListener = function (type, fn) {
+        var cs = document.currentScript;
+        if (type === 'DOMContentLoaded' && cs && cs.hasAttribute('data-eb-delayed')) {
+          queued.push(fn);
+          return;
+        }
+        return origAdd.apply(this, arguments);
+      };
 
-  {% if template == 'gift_card' %}
-    <script src="{{ 'vendor/qrcode.js' | shopify_asset_url }}" defer="defer"></script>
-    <script src="{{ 'giftcard.js' | asset_url }}" defer="defer"></script>
-  {% endif %}
+      var remaining = srcs.length;
+      function done() {
+        if (--remaining) return;
+        document.addEventListener = origAdd;
+        queued.forEach(function (fn) {
+          try { fn.call(document, new Event('DOMContentLoaded')); } catch (err) { console.error(err); }
+        });
+      }
+
+      srcs.forEach(function (src) {
+        var el = document.createElement('script');
+        el.src = src;
+        el.async = false; // download in parallel, execute in order
+        el.setAttribute('data-eb-delayed', '');
+        el.onload = el.onerror = done;
+        document.head.appendChild(el);
+      });
+    }, 3000);
+  </script>
 
   <script>
     // Speed: Contentsquare loads after first user interaction (or 5s fallback)
@@ -222,8 +257,6 @@
 
     <div data-modal-container></div>
 
-      <script src="{{ 'custom.js' | asset_url }}" defer="defer"></script>
-  
 
     <!-- Paste third party scripts below this comment line ============== -->
 
