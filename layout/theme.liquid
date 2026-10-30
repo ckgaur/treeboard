@@ -34,6 +34,18 @@
     };
   </script>
 
+  <link rel="dns-prefetch" href="https://t.contentsquare.net">
+  <link rel="dns-prefetch" href="https://static.klaviyo.com">
+  <link rel="dns-prefetch" href="https://cdn-stamped-io.azureedge.net">
+
+  {%- comment -%} Speed: preload the above-the-fold fonts so text paints without waiting on font-settings.css {%- endcomment -%}
+  {%- if settings.type_base_font != blank -%}
+    <link rel="preload" href="{{ settings.type_base_font | font_url }}" as="font" type="font/woff2" crossorigin>
+  {%- endif -%}
+  {%- if settings.type_heading_font != blank and settings.type_heading_font != settings.type_base_font -%}
+    <link rel="preload" href="{{ settings.type_heading_font | font_url }}" as="font" type="font/woff2" crossorigin>
+  {%- endif -%}
+
   <link rel="preload" href="{{ 'theme.css' | asset_url }}" as="style">
   <link rel="preload" href="{{ 'custom.css' | asset_url }}" as="style">
   {% if settings.favicon != blank %}
