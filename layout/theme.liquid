@@ -191,8 +191,11 @@
 
       // Scripts loaded after DOMContentLoaded would miss their own DOMContentLoaded
       // handlers, so capture those (only from our scripts) and replay them once loaded.
+      // The same applies to window 'load' handlers (theme.js sets up header/cart on load).
       var origAdd = document.addEventListener;
+      var origWinAdd = window.addEventListener;
       var queued = [];
+      var queuedLoad = [];
       document.addEventListener = function (type, fn) {
         var cs = document.currentScript;
         if (type === 'DOMContentLoaded' && cs && cs.hasAttribute('data-eb-delayed')) {
@@ -201,13 +204,31 @@
         }
         return origAdd.apply(this, arguments);
       };
+      window.addEventListener = function (type, fn) {
+        var cs = document.currentScript;
+        if (type === 'load' && cs && cs.hasAttribute('data-eb-delayed')) {
+          queuedLoad.push(fn);
+          return;
+        }
+        return origWinAdd.apply(this, arguments);
+      };
 
       var remaining = srcs.length;
       function done() {
         if (--remaining) return;
         document.addEventListener = origAdd;
+        window.addEventListener = origWinAdd;
+        // Render every section while the section scripts measure/init (sliders need real widths)
+        var root = document.documentElement;
+        root.classList.add('eb-sections-init');
         queued.forEach(function (fn) {
           try { fn.call(document, new Event('DOMContentLoaded')); } catch (err) { console.error(err); }
+        });
+        queuedLoad.forEach(function (fn) {
+          try { fn.call(window, new Event('load')); } catch (err) { console.error(err); }
+        });
+        requestAnimationFrame(function () {
+          requestAnimationFrame(function () { root.classList.remove('eb-sections-init'); });
         });
       }
 
