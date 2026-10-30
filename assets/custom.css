@@ -967,17 +967,17 @@ div.stamped-container[data-widget-style], div[data-widget-style] div.stamped-con
 }
 
 /* ===== Speed: section-wise lazy rendering =====
-   Off-screen sections skip layout/style/paint until they near the viewport.
-   Limited to sections with no carousel/slider JS that measures its width. */
+   Only the first two sections (hero + intro) and the header render up front.
+   Every later section skips layout/style/paint until it nears the viewport.
+   The delayed JS loader in theme.liquid adds .eb-sections-init while the section
+   scripts (sliders measure their width) run, then removes it again. */
 .shopify-section-group-group-footer,
-.main-content > .shopify-section:has([data-section-type="accordion"]),
-.main-content > .shopify-section:has([data-section-type="newsletter"]),
-.main-content > .shopify-section:has([data-section-type="logo-list"]),
-.main-content > .shopify-section:has([data-section-type="section-text"]),
-.main-content > .shopify-section:has([data-section-type="section-map"]),
-.main-content > .shopify-section:has([data-section-type="section-icons"]),
-.main-content > .shopify-section:has([data-section-type="video-player"]),
-.main-content > .shopify-section:has([data-section-type="press"]) {
+.main-content > .shopify-section:nth-child(n+3):not(:has([data-section-type="product"], [data-section-type="cart"], [data-section-type="password"], [data-section-type="search-page"])) {
   content-visibility: auto;
-  contain-intrinsic-size: auto 500px;
+  contain-intrinsic-size: auto 600px;
+}
+
+html.eb-sections-init .shopify-section-group-group-footer,
+html.eb-sections-init .main-content > .shopify-section {
+  content-visibility: visible;
 }
