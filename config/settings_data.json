@@ -61,11 +61,6 @@
     "tag_new_limit": 14,
     "content_for_index": [],
     "blocks": {
-      "16248400032618458247": {
-        "type": "shopify://apps/myra-infinite-product-options/blocks/app-embed-block/019c1561-a905-7236-9fe2-934c4ba01a85",
-        "disabled": false,
-        "settings": {}
-      },
       "4697538150380142411": {
         "type": "shopify://apps/stamped-reviews/blocks/reviews-popup/a103faaf-2125-4b0e-89fa-de5149736723",
         "disabled": false,
@@ -151,6 +146,11 @@
         "settings": {
           "themeInfo": "{{ theme.id }}"
         }
+      },
+      "16248400032618458247": {
+        "type": "shopify://apps/myra-infinite-product-options/blocks/app-embed-block/019c1561-a905-7236-9fe2-934c4ba01a85",
+        "disabled": true,
+        "settings": {}
       }
     }
   },
