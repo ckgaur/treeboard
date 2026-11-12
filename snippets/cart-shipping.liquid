@@ -17,15 +17,28 @@
   >
     <div class="shipping-calculator">
       <div data-shipping-estimate-form>
+        {% comment %}
+          <div class="hide">
+            {%- comment -%}Required for Shopify address handlers{%- endcomment -%}
+            <input type="text" name="address[first_name]" value="{{ form.first_name }}">
+            <input type="text" name="address[last_name]" value="{{ form.last_name }}">
+            <input type="text" name="address[company]" value="{{ form.company }}">
+            <input type="text" name="address[address1]" value="{{ form.address1 }}">
+            <input type="text" name="address[address2]" value="{{ form.address2 }}">
+            <input type="text" name="address[city]" value="{{ form.city }}">
+            <input type="tel" name="address[phone]" value="{{ form.phone }}">
+          </div>
+        {% endcomment %}
+
         <div class="hide">
-          {%- comment -%}Required for Shopify address handlers{%- endcomment -%}
-          <input type="text" name="address[first_name]" value="{{ form.first_name }}">
-          <input type="text" name="address[last_name]" value="{{ form.last_name }}">
-          <input type="text" name="address[company]" value="{{ form.company }}">
-          <input type="text" name="address[address1]" value="{{ form.address1 }}">
-          <input type="text" name="address[address2]" value="{{ form.address2 }}">
-          <input type="text" name="address[city]" value="{{ form.city }}">
-          <input type="tel" name="address[phone]" value="{{ form.phone }}">
+          {%- comment -%}Required for Shopify address handlers. IDs prevent AddressForm from matching label[for=""] elsewhere on the page.{%- endcomment -%}
+          <input type="text" id="estimate_address_first_name" name="address[first_name]" value="{{ form.first_name }}">
+          <input type="text" id="estimate_address_last_name" name="address[last_name]" value="{{ form.last_name }}">
+          <input type="text" id="estimate_address_company" name="address[company]" value="{{ form.company }}">
+          <input type="text" id="estimate_address_address1" name="address[address1]" value="{{ form.address1 }}">
+          <input type="text" id="estimate_address_address2" name="address[address2]" value="{{ form.address2 }}">
+          <input type="text" id="estimate_address_city" name="address[city]" value="{{ form.city }}">
+          <input type="tel" id="estimate_address_phone" name="address[phone]" value="{{ form.phone }}">
         </div>
 
         <div class="custom-form__block form__field">
@@ -68,7 +81,12 @@
 
       <div class="cart__rates__wrapper" data-response-wrapper aria-live="assertive"></div>
 
-      <input type="button" data-submit-shipping class="btn--soft btn--primary btn--full btn--medium shipping__rates__button" value="{{ 'cart.shipping.estimate_shipping' | t }}">
+      <input
+        type="button"
+        data-submit-shipping
+        class="btn--soft btn--primary btn--full btn--medium shipping__rates__button"
+        value="{{ 'cart.shipping.estimate_shipping' | t }}"
+      >
     </div>
   </div>
 </div>
