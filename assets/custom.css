@@ -1002,7 +1002,7 @@ html.eb-sections-init .main-content > .shopify-section {
   /* --- spacing scale (tune these to taste) --- */
   --gpo-gap-options:  12px;   /* between buttons in a row  */
   --gpo-gap-label:    12px;   /* heading -> buttons        */
-  --gpo-gap-group:    28px;   /* option group -> next group*/
+  --gpo-gap-group:    16pxpx;   /* option group -> next group*/
 }
 
 /* ------------------------------------------------------------
