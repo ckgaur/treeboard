@@ -984,11 +984,30 @@ html.eb-sections-init .main-content > .shopify-section {
 
 
 /* ============================================================
-   BUTTON-STYLE RADIO OPTIONS — GREEN SELECTED STATE
-   Selected background: #0a5538, selected text: #ffffff
+   ELEGANT BUTTON-STYLE RADIO OPTIONS — WITH BREATHING ROOM
+   Selected: #0a5538 background + white text + animated tick
    ============================================================ */
 
-/* 1) Hide native input and old custom circle/dot */
+:root {
+  --gpo-brand:        #0a5538;
+  --gpo-brand-light:  #0d6b46;
+  --gpo-brand-dark:   #073d28;
+  --gpo-ink:          #1a1a1a;
+  --gpo-muted:        #6b7177;
+  --gpo-line:         #e3e3e3;
+  --gpo-line-strong:  #c9cccf;
+  --gpo-radius:       12px;
+  --gpo-ease:         cubic-bezier(.22, .61, .36, 1);
+
+  /* --- spacing scale (tune these to taste) --- */
+  --gpo-gap-options:  12px;   /* between buttons in a row  */
+  --gpo-gap-label:    12px;   /* heading -> buttons        */
+  --gpo-gap-group: 16px;   /* option group -> next group*/
+}
+
+/* ------------------------------------------------------------
+   1) Hide the native input + the old circle/dot
+   ------------------------------------------------------------ */
 .gpo-choicelist.gpo-radio {
   position: relative;
 }
@@ -1007,117 +1026,280 @@ html.eb-sections-init .main-content > .shopify-section {
   opacity: 0;
 }
 
-.gpo-choicelist.gpo-radio input[type="radio"] + label::before,
-.gpo-choicelist.gpo-radio input[type="radio"] + label::after {
+.gpo-choicelist.gpo-radio input[type="radio"] + label::before {
   display: none !important;
   content: none !important;
 }
 
-/* 2) Layout: options flow in a row and wrap */
+/* ------------------------------------------------------------
+   2) SPACING — the fix for the congested look
+   ------------------------------------------------------------ */
+
+/* Space between each heading + its button row */
+.gpo-element.gpo-form__group {
+  margin-bottom: var(--gpo-gap-group) !important;
+  padding-bottom: 0 !important;
+}
+
+/* Space between the heading text and the buttons */
+.gpo-element .gpo-label {
+  display: block !important;
+  margin: 0 0 var(--gpo-gap-label) 0 !important;
+  padding-bottom: 0 !important;
+  line-height: 1.4;
+}
+
+/* Nothing after the last group so the section doesn't over-pad */
+.gpo-element.gpo-form__group:last-child {
+  margin-bottom: 0 !important;
+}
+
+/* ------------------------------------------------------------
+   3) Layout — options flow in a wrapping row
+   ------------------------------------------------------------ */
 .gpo-ov-wrapper:has(> .gpo-choicelist.gpo-radio) {
   display: flex !important;
   flex-direction: row !important;
   flex-wrap: wrap !important;
   align-items: stretch;
   justify-content: flex-start;
-  gap: 8px;
+  gap: var(--gpo-gap-options);
+  margin: 0 !important;
+  padding: 2px 0 !important; /* room for the hover lift */
 }
 
 .gpo-ov-wrapper:has(> .gpo-choicelist.gpo-radio) > .gpo-choicelist.gpo-radio {
   display: flex;
   flex: 0 1 auto;
-  min-width: 110px;
+  min-width: 112px;
   margin: 0;
   padding: 0;
 }
 
-/* 3) The button */
+/* ------------------------------------------------------------
+   4) The button — resting state
+   ------------------------------------------------------------ */
 .gpo-choicelist.gpo-radio label {
+  position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 6px;
   flex: 1 1 auto;
   width: 100%;
-  min-height: 44px;
+  min-height: 46px;
   margin: 0 !important;
-  padding: 10px 18px !important;
-  border: 1px solid #8c9196;
-  border-radius: 8px;
-  background: #ffffff;
-  color: #1a1a1a;
+  padding: 10px 20px !important;
+  border: 1px solid var(--gpo-line);
+  border-radius: var(--gpo-radius);
+  background: linear-gradient(180deg, #ffffff 0%, #fbfbfc 100%);
+  color: var(--gpo-ink);
   font-family: "Open Sans", sans-serif;
   font-size: 14px;
-  font-weight: 400;
+  font-weight: 500;
   line-height: 1.35;
+  letter-spacing: .01em;
   text-align: center;
   text-decoration: none;
   cursor: pointer;
   user-select: none;
-  transition: background-color .18s ease, border-color .18s ease,
-              color .18s ease, box-shadow .18s ease;
+  isolation: isolate;
+  overflow: hidden;
+  box-shadow:
+    0 1px 2px rgba(16, 24, 40, .04),
+    0 0 0 0 rgba(10, 85, 56, 0);
+  transition:
+    color            .22s var(--gpo-ease),
+    background-color .22s var(--gpo-ease),
+    border-color     .22s var(--gpo-ease),
+    box-shadow       .28s var(--gpo-ease),
+    transform        .18s var(--gpo-ease);
 }
 
 .gpo-choicelist.gpo-radio label .choicelist-item__value {
   white-space: normal;
   overflow-wrap: break-word;
   color: inherit;
+  transition: color .22s var(--gpo-ease);
 }
 
+/* Price / add-on chip */
 .gpo-choicelist.gpo-radio label .addOn {
-  font-size: 12px;
+  display: inline-block;
+  margin-left: 4px;
+  padding: 1px 7px;
+  border-radius: 999px;
+  background: rgba(10, 85, 56, .08);
+  color: var(--gpo-brand);
+  font-size: 11.5px;
   font-weight: 600;
-  color: #6b7177;
   white-space: nowrap;
+  transition: background-color .22s var(--gpo-ease), color .22s var(--gpo-ease);
 }
 
-/* 4) Hover */
+/* Sliding sheen */
+.gpo-choicelist.gpo-radio label::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(
+    115deg,
+    transparent 30%,
+    rgba(255, 255, 255, .55) 50%,
+    transparent 70%
+  );
+  transform: translateX(-120%);
+  transition: transform .65s var(--gpo-ease);
+  pointer-events: none;
+}
+
+/* ------------------------------------------------------------
+   5) Hover
+   ------------------------------------------------------------ */
 .gpo-choicelist.gpo-radio label:hover {
-  border-color: #0a5538;
-  background: #f4f8f6;
-  color: #0a5538;
-  box-shadow: none;
+  border-color: var(--gpo-brand);
+  background: linear-gradient(180deg, #ffffff 0%, #f2f8f5 100%);
+  color: var(--gpo-brand);
+  transform: translateY(-2px);
+  box-shadow:
+    0 6px 16px -6px rgba(10, 85, 56, .28),
+    0 2px 4px rgba(16, 24, 40, .04);
 }
 
-/* 5) Selected state — dark green background, white text */
+.gpo-choicelist.gpo-radio label:hover::after {
+  transform: translateX(120%);
+}
+
+.gpo-choicelist.gpo-radio label:hover .addOn {
+  background: rgba(10, 85, 56, .14);
+  color: var(--gpo-brand);
+}
+
+.gpo-choicelist.gpo-radio label:active {
+  transform: translateY(0) scale(.985);
+  box-shadow: 0 1px 2px rgba(16, 24, 40, .06);
+}
+
+/* ------------------------------------------------------------
+   6) Selected — deep green gradient, white text, glow ring
+   ------------------------------------------------------------ */
 .gpo-choicelist.gpo-radio input[type="radio"]:checked + label {
-  border-color: #0a5538 !important;
-  background: #0a5538 !important;
+  border-color: var(--gpo-brand) !important;
+  background: linear-gradient(
+    135deg,
+    var(--gpo-brand-light) 0%,
+    var(--gpo-brand)       55%,
+    var(--gpo-brand-dark)  100%
+  ) !important;
   color: #ffffff !important;
   font-weight: 600;
-  box-shadow: inset 0 0 0 1px #0a5538;
+  transform: translateY(-1px);
+  box-shadow:
+    0 8px 20px -8px rgba(10, 85, 56, .55),
+    0 0 0 3px rgba(10, 85, 56, .12),
+    inset 0 1px 0 rgba(255, 255, 255, .18);
 }
 
-/* Force all text inside selected button to white */
 .gpo-choicelist.gpo-radio input[type="radio"]:checked + label,
 .gpo-choicelist.gpo-radio input[type="radio"]:checked + label span,
-.gpo-choicelist.gpo-radio input[type="radio"]:checked + label .choicelist-item__value,
-.gpo-choicelist.gpo-radio input[type="radio"]:checked + label .addOn {
+.gpo-choicelist.gpo-radio input[type="radio"]:checked + label .choicelist-item__value {
   color: #ffffff !important;
 }
 
 .gpo-choicelist.gpo-radio input[type="radio"]:checked + label .addOn {
-  opacity: .9;
+  background: rgba(255, 255, 255, .18) !important;
+  color: #ffffff !important;
 }
 
-/* 6) Keyboard focus ring */
+.gpo-choicelist.gpo-radio input[type="radio"]:checked + label:hover {
+  background: linear-gradient(
+    135deg,
+    #0f7a50 0%,
+    var(--gpo-brand-light) 55%,
+    var(--gpo-brand)       100%
+  ) !important;
+  transform: translateY(-2px);
+  box-shadow:
+    0 10px 24px -8px rgba(10, 85, 56, .6),
+    0 0 0 4px rgba(10, 85, 56, .16),
+    inset 0 1px 0 rgba(255, 255, 255, .2);
+}
+
+/* Animated tick badge */
+.gpo-choicelist.gpo-radio input[type="radio"]:checked + label .choicelist-item__value::after {
+  content: "✓";
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  margin-left: 8px;
+  border-radius: 50%;
+  background: #ffffff;
+  color: var(--gpo-brand);
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1;
+  vertical-align: middle;
+  animation: gpoTickPop .3s var(--gpo-ease) both;
+}
+
+@keyframes gpoTickPop {
+  0%   { transform: scale(0) rotate(-25deg); opacity: 0; }
+  60%  { transform: scale(1.18) rotate(4deg); opacity: 1; }
+  100% { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+
+/* ------------------------------------------------------------
+   7) Keyboard focus
+   ------------------------------------------------------------ */
 .gpo-choicelist.gpo-radio input[type="radio"]:focus-visible + label {
-  outline: 2px solid #0a5538;
-  outline-offset: 2px;
+  outline: 2px solid var(--gpo-brand);
+  outline-offset: 3px;
 }
 
-/* 7) Mobile: 2 buttons per row */
+/* ------------------------------------------------------------
+   8) Responsive
+   ------------------------------------------------------------ */
 @media screen and (max-width: 749px) {
+  :root {
+    --gpo-gap-options: 10px;
+    --gpo-gap-label:   10px;
+    --gpo-gap-group:   24px;
+  }
+
   .gpo-ov-wrapper:has(> .gpo-choicelist.gpo-radio) > .gpo-choicelist.gpo-radio {
-    flex: 1 1 calc(50% - 8px);
+    flex: 1 1 calc(50% - 10px);
     min-width: 0;
+  }
+
+  .gpo-choicelist.gpo-radio label {
+    min-height: 48px;
+    padding: 12px 14px !important;
+    font-size: 13.5px;
   }
 }
 
-/* 8) Fallback for browsers without :has() */
+/* ------------------------------------------------------------
+   9) Reduced motion
+   ------------------------------------------------------------ */
+@media (prefers-reduced-motion: reduce) {
+  .gpo-choicelist.gpo-radio label,
+  .gpo-choicelist.gpo-radio label::after,
+  .gpo-choicelist.gpo-radio input[type="radio"]:checked + label .choicelist-item__value::after {
+    transition: none !important;
+    animation: none !important;
+    transform: none !important;
+  }
+}
+
+/* ------------------------------------------------------------
+   10) Fallback for browsers without :has()
+   ------------------------------------------------------------ */
 @supports not selector(:has(*)) {
   .gpo-choicelist.gpo-radio {
     display: inline-flex;
-    margin: 0 8px 8px 0;
+    margin: 0 var(--gpo-gap-options) var(--gpo-gap-options) 0;
   }
 }
