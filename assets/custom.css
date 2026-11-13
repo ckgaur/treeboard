@@ -981,3 +981,143 @@ html.eb-sections-init .shopify-section-group-group-footer,
 html.eb-sections-init .main-content > .shopify-section {
   content-visibility: visible;
 }
+
+
+/* ============================================================
+   BUTTON-STYLE RADIO OPTIONS — GREEN SELECTED STATE
+   Selected background: #0a5538, selected text: #ffffff
+   ============================================================ */
+
+/* 1) Hide native input and old custom circle/dot */
+.gpo-choicelist.gpo-radio {
+  position: relative;
+}
+
+.gpo-choicelist.gpo-radio input[type="radio"] {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  opacity: 0;
+}
+
+.gpo-choicelist.gpo-radio input[type="radio"] + label::before,
+.gpo-choicelist.gpo-radio input[type="radio"] + label::after {
+  display: none !important;
+  content: none !important;
+}
+
+/* 2) Layout: options flow in a row and wrap */
+.gpo-ov-wrapper:has(> .gpo-choicelist.gpo-radio) {
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: wrap !important;
+  align-items: stretch;
+  justify-content: flex-start;
+  gap: 8px;
+}
+
+.gpo-ov-wrapper:has(> .gpo-choicelist.gpo-radio) > .gpo-choicelist.gpo-radio {
+  display: flex;
+  flex: 0 1 auto;
+  min-width: 110px;
+  margin: 0;
+  padding: 0;
+}
+
+/* 3) The button */
+.gpo-choicelist.gpo-radio label {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  flex: 1 1 auto;
+  width: 100%;
+  min-height: 44px;
+  margin: 0 !important;
+  padding: 10px 18px !important;
+  border: 1px solid #8c9196;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #1a1a1a;
+  font-family: "Open Sans", sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.35;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  user-select: none;
+  transition: background-color .18s ease, border-color .18s ease,
+              color .18s ease, box-shadow .18s ease;
+}
+
+.gpo-choicelist.gpo-radio label .choicelist-item__value {
+  white-space: normal;
+  overflow-wrap: break-word;
+  color: inherit;
+}
+
+.gpo-choicelist.gpo-radio label .addOn {
+  font-size: 12px;
+  font-weight: 600;
+  color: #6b7177;
+  white-space: nowrap;
+}
+
+/* 4) Hover */
+.gpo-choicelist.gpo-radio label:hover {
+  border-color: #0a5538;
+  background: #f4f8f6;
+  color: #0a5538;
+  box-shadow: none;
+}
+
+/* 5) Selected state — dark green background, white text */
+.gpo-choicelist.gpo-radio input[type="radio"]:checked + label {
+  border-color: #0a5538 !important;
+  background: #0a5538 !important;
+  color: #ffffff !important;
+  font-weight: 600;
+  box-shadow: inset 0 0 0 1px #0a5538;
+}
+
+/* Force all text inside selected button to white */
+.gpo-choicelist.gpo-radio input[type="radio"]:checked + label,
+.gpo-choicelist.gpo-radio input[type="radio"]:checked + label span,
+.gpo-choicelist.gpo-radio input[type="radio"]:checked + label .choicelist-item__value,
+.gpo-choicelist.gpo-radio input[type="radio"]:checked + label .addOn {
+  color: #ffffff !important;
+}
+
+.gpo-choicelist.gpo-radio input[type="radio"]:checked + label .addOn {
+  opacity: .9;
+}
+
+/* 6) Keyboard focus ring */
+.gpo-choicelist.gpo-radio input[type="radio"]:focus-visible + label {
+  outline: 2px solid #0a5538;
+  outline-offset: 2px;
+}
+
+/* 7) Mobile: 2 buttons per row */
+@media screen and (max-width: 749px) {
+  .gpo-ov-wrapper:has(> .gpo-choicelist.gpo-radio) > .gpo-choicelist.gpo-radio {
+    flex: 1 1 calc(50% - 8px);
+    min-width: 0;
+  }
+}
+
+/* 8) Fallback for browsers without :has() */
+@supports not selector(:has(*)) {
+  .gpo-choicelist.gpo-radio {
+    display: inline-flex;
+    margin: 0 8px 8px 0;
+  }
+}
