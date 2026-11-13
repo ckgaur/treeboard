@@ -984,7 +984,7 @@ html.eb-sections-init .main-content > .shopify-section {
 
 
 /* ============================================================
-   ELEGANT BUTTON-STYLE RADIO OPTIONS — WITH BREATHING ROOM
+   ELEGANT BUTTON-STYLE RADIO OPTIONS — SLIM BUTTONS
    Selected: #0a5538 background + white text + animated tick
    ============================================================ */
 
@@ -996,13 +996,18 @@ html.eb-sections-init .main-content > .shopify-section {
   --gpo-muted:        #6b7177;
   --gpo-line:         #e3e3e3;
   --gpo-line-strong:  #c9cccf;
-  --gpo-radius:       12px;
+  --gpo-radius:       10px;      /* slightly tighter radius for a slimmer look */
   --gpo-ease:         cubic-bezier(.22, .61, .36, 1);
 
-  /* --- spacing scale (tune these to taste) --- */
-  --gpo-gap-options:  12px;   /* between buttons in a row  */
-  --gpo-gap-label:    12px;   /* heading -> buttons        */
-  --gpo-gap-group:    16pxpx;   /* option group -> next group*/
+  /* --- spacing scale --- */
+  --gpo-gap-options:  10px;
+  --gpo-gap-label:    10px;
+  --gpo-gap-group: 0px;
+
+  /* --- button height --- */
+  --gpo-btn-height:   38px;      /* was 46px */
+  --gpo-btn-pad-y:    7px;       /* was 10px */
+  --gpo-btn-pad-x:    16px;      /* was 20px */
 }
 
 /* ------------------------------------------------------------
@@ -1032,16 +1037,13 @@ html.eb-sections-init .main-content > .shopify-section {
 }
 
 /* ------------------------------------------------------------
-   2) SPACING — the fix for the congested look
+   2) SPACING — headings and groups get breathing room
    ------------------------------------------------------------ */
-
-/* Space between each heading + its button row */
 .gpo-element.gpo-form__group {
   margin-bottom: var(--gpo-gap-group) !important;
   padding-bottom: 0 !important;
 }
 
-/* Space between the heading text and the buttons */
 .gpo-element .gpo-label {
   display: block !important;
   margin: 0 0 var(--gpo-gap-label) 0 !important;
@@ -1049,7 +1051,6 @@ html.eb-sections-init .main-content > .shopify-section {
   line-height: 1.4;
 }
 
-/* Nothing after the last group so the section doesn't over-pad */
 .gpo-element.gpo-form__group:last-child {
   margin-bottom: 0 !important;
 }
@@ -1065,19 +1066,19 @@ html.eb-sections-init .main-content > .shopify-section {
   justify-content: flex-start;
   gap: var(--gpo-gap-options);
   margin: 0 !important;
-  padding: 2px 0 !important; /* room for the hover lift */
+  padding: 2px 0 !important;
 }
 
 .gpo-ov-wrapper:has(> .gpo-choicelist.gpo-radio) > .gpo-choicelist.gpo-radio {
   display: flex;
   flex: 0 1 auto;
-  min-width: 112px;
+  min-width: 104px;
   margin: 0;
   padding: 0;
 }
 
 /* ------------------------------------------------------------
-   4) The button — resting state
+   4) The button — resting state (slimmer)
    ------------------------------------------------------------ */
 .gpo-choicelist.gpo-radio label {
   position: relative;
@@ -1087,17 +1088,17 @@ html.eb-sections-init .main-content > .shopify-section {
   gap: 6px;
   flex: 1 1 auto;
   width: 100%;
-  min-height: 46px;
+  min-height: var(--gpo-btn-height);
   margin: 0 !important;
-  padding: 10px 20px !important;
+  padding: var(--gpo-btn-pad-y) var(--gpo-btn-pad-x) !important;
   border: 1px solid var(--gpo-line);
   border-radius: var(--gpo-radius);
   background: linear-gradient(180deg, #ffffff 0%, #fbfbfc 100%);
   color: var(--gpo-ink);
   font-family: "Open Sans", sans-serif;
-  font-size: 14px;
+  font-size: 13.5px;
   font-weight: 500;
-  line-height: 1.35;
+  line-height: 1.25;
   letter-spacing: .01em;
   text-align: center;
   text-decoration: none;
@@ -1123,16 +1124,17 @@ html.eb-sections-init .main-content > .shopify-section {
   transition: color .22s var(--gpo-ease);
 }
 
-/* Price / add-on chip */
+/* Price / add-on chip — trimmed to fit the slimmer button */
 .gpo-choicelist.gpo-radio label .addOn {
   display: inline-block;
   margin-left: 4px;
-  padding: 1px 7px;
+  padding: 0 6px;
   border-radius: 999px;
   background: rgba(10, 85, 56, .08);
   color: var(--gpo-brand);
-  font-size: 11.5px;
+  font-size: 11px;
   font-weight: 600;
+  line-height: 1.6;
   white-space: nowrap;
   transition: background-color .22s var(--gpo-ease), color .22s var(--gpo-ease);
 }
@@ -1161,9 +1163,9 @@ html.eb-sections-init .main-content > .shopify-section {
   border-color: var(--gpo-brand);
   background: linear-gradient(180deg, #ffffff 0%, #f2f8f5 100%);
   color: var(--gpo-brand);
-  transform: translateY(-2px);
+  transform: translateY(-1px);
   box-shadow:
-    0 6px 16px -6px rgba(10, 85, 56, .28),
+    0 4px 12px -6px rgba(10, 85, 56, .28),
     0 2px 4px rgba(16, 24, 40, .04);
 }
 
@@ -1194,9 +1196,8 @@ html.eb-sections-init .main-content > .shopify-section {
   ) !important;
   color: #ffffff !important;
   font-weight: 600;
-  transform: translateY(-1px);
   box-shadow:
-    0 8px 20px -8px rgba(10, 85, 56, .55),
+    0 5px 14px -6px rgba(10, 85, 56, .5),
     0 0 0 3px rgba(10, 85, 56, .12),
     inset 0 1px 0 rgba(255, 255, 255, .18);
 }
@@ -1219,26 +1220,26 @@ html.eb-sections-init .main-content > .shopify-section {
     var(--gpo-brand-light) 55%,
     var(--gpo-brand)       100%
   ) !important;
-  transform: translateY(-2px);
+  transform: translateY(-1px);
   box-shadow:
-    0 10px 24px -8px rgba(10, 85, 56, .6),
+    0 7px 16px -6px rgba(10, 85, 56, .55),
     0 0 0 4px rgba(10, 85, 56, .16),
     inset 0 1px 0 rgba(255, 255, 255, .2);
 }
 
-/* Animated tick badge */
+/* Animated tick badge — scaled to the new height */
 .gpo-choicelist.gpo-radio input[type="radio"]:checked + label .choicelist-item__value::after {
   content: "✓";
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 16px;
-  height: 16px;
-  margin-left: 8px;
+  width: 14px;
+  height: 14px;
+  margin-left: 7px;
   border-radius: 50%;
   background: #ffffff;
   color: var(--gpo-brand);
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 700;
   line-height: 1;
   vertical-align: middle;
@@ -1260,24 +1261,25 @@ html.eb-sections-init .main-content > .shopify-section {
 }
 
 /* ------------------------------------------------------------
-   8) Responsive
+   8) Responsive — keeps buttons slim on phones too
    ------------------------------------------------------------ */
 @media screen and (max-width: 749px) {
   :root {
-    --gpo-gap-options: 10px;
-    --gpo-gap-label:   10px;
-    --gpo-gap-group:   24px;
+    --gpo-gap-options: 8px;
+    --gpo-gap-label:   9px;
+    --gpo-gap-group:   22px;
+    --gpo-btn-height:  40px;   /* was 48px */
+    --gpo-btn-pad-y:   8px;
+    --gpo-btn-pad-x:   14px;
   }
 
   .gpo-ov-wrapper:has(> .gpo-choicelist.gpo-radio) > .gpo-choicelist.gpo-radio {
-    flex: 1 1 calc(50% - 10px);
+    flex: 1 1 calc(50% - 8px);
     min-width: 0;
   }
 
   .gpo-choicelist.gpo-radio label {
-    min-height: 48px;
-    padding: 12px 14px !important;
-    font-size: 13.5px;
+    font-size: 13px;
   }
 }
 
