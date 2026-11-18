@@ -53,7 +53,7 @@
 
  <!-- Google Tag Manager -->
         <script>
-  // Speed: GTM loads after first user interaction (or 5s fallback), not during page load
+  // Speed: GTM loads after first user interaction (or 12s fallback), not during page load
   window.dataLayer = window.dataLayer || [];
   window.ebLoadDelayed = function (fn, timeout) {
     var done = false;
@@ -65,7 +65,7 @@
       fn();
     }
     events.forEach(function (e) { window.addEventListener(e, run, { passive: true, once: true }); });
-    window.addEventListener('load', function () { setTimeout(run, timeout || 5000); });
+    window.addEventListener('load', function () { setTimeout(run, timeout || 12000); });
   };
   window.ebLoadDelayed(function () {
     (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});
