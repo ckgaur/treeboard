@@ -18,7 +18,7 @@
   <link rel="preconnect" href="https://monorail-edge.shopifysvc.com" crossorigin>
 
   <script>
-    // Speed: run a callback after first user interaction (or 5s after load)
+    // Speed: run a callback after first user interaction (or 12s after load)
     window.dataLayer = window.dataLayer || [];
     window.ebLoadDelayed = window.ebLoadDelayed || function (fn, timeout) {
       var done = false;
@@ -30,7 +30,7 @@
         fn();
       }
       events.forEach(function (e) { window.addEventListener(e, run, { passive: true, once: true }); });
-      window.addEventListener('load', function () { setTimeout(run, timeout || 5000); });
+      window.addEventListener('load', function () { setTimeout(run, timeout || 12000); });
     };
   </script>
 
@@ -221,15 +221,21 @@
         // Render every section while the section scripts measure/init (sliders need real widths)
         var root = document.documentElement;
         root.classList.add('eb-sections-init');
-        queued.forEach(function (fn) {
-          try { fn.call(document, new Event('DOMContentLoaded')); } catch (err) { console.error(err); }
-        });
-        queuedLoad.forEach(function (fn) {
-          try { fn.call(window, new Event('load')); } catch (err) { console.error(err); }
-        });
-        requestAnimationFrame(function () {
-          requestAnimationFrame(function () { root.classList.remove('eb-sections-init'); });
-        });
+        // Run each replayed handler in its own task so no single long task blocks the main thread
+        var jobs = [];
+        queued.forEach(function (fn) { jobs.push(function () { fn.call(document, new Event('DOMContentLoaded')); }); });
+        queuedLoad.forEach(function (fn) { jobs.push(function () { fn.call(window, new Event('load')); }); });
+        (function next() {
+          var job = jobs.shift();
+          if (!job) {
+            requestAnimationFrame(function () {
+              requestAnimationFrame(function () { root.classList.remove('eb-sections-init'); });
+            });
+            return;
+          }
+          try { job(); } catch (err) { console.error(err); }
+          setTimeout(next, 0);
+        })();
       }
 
       srcs.forEach(function (src) {
@@ -240,11 +246,26 @@
         el.onload = el.onerror = done;
         document.head.appendChild(el);
       });
-    }, 3000);
+    }, 8000);
   </script>
 
   <script>
-    // Speed: Contentsquare loads after first user interaction (or 5s fallback)
+    // Speed: after the page has loaded, download (but do not run) the theme scripts at low priority,
+    // so the first tap/scroll only has to execute them instead of fetching them too.
+    window.addEventListener('load', function () {
+      var go = function () {
+        ['{{ 'lazysizes.js' | asset_url }}', '{{ 'vendor.js' | asset_url }}', '{{ 'theme.js' | asset_url }}', '{{ 'custom.js' | asset_url }}'].forEach(function (src) {
+          var l = document.createElement('link');
+          l.rel = 'preload'; l.as = 'script'; l.href = src; l.setAttribute('fetchpriority', 'low');
+          document.head.appendChild(l);
+        });
+      };
+      (window.requestIdleCallback || function (f) { setTimeout(f, 500); })(go);
+    });
+  </script>
+
+  <script>
+    // Speed: Contentsquare loads after first user interaction (or 12s fallback)
     window.ebLoadDelayed(function () {
       var cs = document.createElement('script');
       cs.src = 'https://t.contentsquare.net/uxa/94070036dffb7.js';
