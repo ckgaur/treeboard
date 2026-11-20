@@ -1305,3 +1305,60 @@ html.eb-sections-init .main-content > .shopify-section {
     margin: 0 var(--gpo-gap-options) var(--gpo-gap-options) 0;
   }
 }
+
+
+
+/* ==========================================
+   MOBILE COOKIE BANNER OPTIMIZATION
+   ========================================== */
+
+@media screen and (max-width: 767px) {
+
+  /* Reduce Shopify cookie banner height */
+  #shopify-pc__banner {
+    max-height: 35vh !important;
+    overflow-y: auto !important;
+    padding: 8px 12px !important;
+    box-sizing: border-box !important;
+  }
+
+  #shopify-pc__banner .shopify-pc__banner__dialog {
+    padding: 8px 12px !important;
+    max-height: 35vh !important;
+  }
+
+  /* Reduce cookie banner text size */
+  #shopify-pc__banner .shopify-pc__banner__body p {
+    font-size: 11px !important;
+    line-height: 1.35 !important;
+    margin-bottom: 6px !important;
+  }
+
+  /* Display Accept and Decline buttons in one row */
+  #shopify-pc__banner .shopify-pc__banner__btns {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    gap: 8px !important;
+    width: 100% !important;
+  }
+
+  /* Reduce button size */
+  #shopify-pc__banner .shopify-pc__banner__btns button {
+    flex: 1 1 50% !important;
+    width: 50% !important;
+    min-width: 0 !important;
+    min-height: 32px !important;
+    margin: 0 !important;
+    padding: 7px 5px !important;
+    font-size: 11px !important;
+    white-space: nowrap !important;
+  }
+
+  /* Hide Klaviyo floating side launcher on mobile */
+  .kl-hub-launcher-container,
+  .kl-hub-launcher {
+    display: none !important;
+  }
+
+}
