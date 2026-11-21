@@ -48,7 +48,7 @@
     "cart_notes_enable": true,
     "cart_continue_browsing": "shopify://collections/all",
     "show_free_shipping_message": true,
-    "free_shipping_limit": "250",
+    "free_shipping_limit": "50",
     "cart_show_additional_buttons": false,
     "collection_text_alignment": "text-center",
     "product_grid_aspect_ratio": 1,
