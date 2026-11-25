@@ -26,31 +26,16 @@
     "section_slideshow_gKFVgt": {
       "type": "section-slideshow",
       "blocks": {
-        "image_yUXFkF": {
+        "image_bphfDB": {
           "type": "image",
           "settings": {
+            "image": "shopify://shop_images/sale_banner.jpg",
             "overlay_opacity": 15,
-            "overlay_color": "#000",
-            "kicker": "<p>Introducing</p>",
-            "heading": "<p>Image banner</p>",
-            "text": "<p>This area is used to describe your store</p>",
-            "button_text": "Learn More",
-            "button_url": "",
-            "button_size": "btn--large",
-            "button_style": "hero__btn btn",
-            "button_color": "btn--white",
-            "image_bottom_link": ""
-          }
-        },
-        "image_fiMzxH": {
-          "type": "image",
-          "settings": {
-            "overlay_opacity": 15,
-            "overlay_color": "#000",
-            "kicker": "<p>Introducing</p>",
-            "heading": "<p>Image banner</p>",
-            "text": "<p>This area is used to describe your store</p>",
-            "button_text": "Learn More",
+            "overlay_color": "#000000",
+            "kicker": "<p>HOLIDAY SALES</p>",
+            "heading": "<p>Free Shipping on<br/>All Cutting Boards</p>",
+            "text": "<p>Enjoy free shipping on every cutting board this holiday season.</p>",
+            "button_text": "Shop Cutting Boards",
             "button_url": "",
             "button_size": "btn--large",
             "button_style": "hero__btn btn",
@@ -60,8 +45,7 @@
         }
       },
       "block_order": [
-        "image_yUXFkF",
-        "image_fiMzxH"
+        "image_bphfDB"
       ],
       "name": "Slideshow",
       "settings": {
