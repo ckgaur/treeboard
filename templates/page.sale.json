@@ -62,6 +62,9 @@
     },
     "section_sale_products_8mbFM8": {
       "type": "section-sale-products",
+      "custom_css": [
+        "#sale .section-faq {background-color: #FFF9EB;}"
+      ],
       "name": "Sale products",
       "settings": {
         "title": "Holiday Sales",
