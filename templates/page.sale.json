@@ -33,13 +33,14 @@
             "overlay_opacity": 15,
             "overlay_color": "#000000",
             "kicker": "<p>HOLIDAY SALES</p>",
-            "heading": "<p>Free Shipping on<br/>All Cutting Boards</p>",
+            "heading": "<h2>Free Shipping on<br/>All Cutting Boards</h2>",
             "text": "<p>Enjoy free shipping on every cutting board this holiday season.</p>",
             "button_text": "Shop Cutting Boards",
             "button_url": "",
             "button_size": "btn--large",
             "button_style": "hero__btn btn",
             "button_color": "btn--white",
+            "image_bottom": "shopify://shop_images/Frame_1250.png",
             "image_bottom_link": ""
           }
         }
