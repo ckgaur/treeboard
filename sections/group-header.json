@@ -46,6 +46,7 @@
         "enable_account": true,
         "transparent_home": true,
         "transparent_collection": false,
+        "transparent_templates": "sale",
         "transparent_logo": "shopify://shop_images/788fa0c2596cad095a55e427fdacc6006e31ca73.png"
       }
     }
