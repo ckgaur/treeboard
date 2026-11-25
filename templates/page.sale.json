@@ -87,33 +87,49 @@
         "text_3QQ7Eg": {
           "type": "text",
           "settings": {
-            "title": "Frequently asked question",
-            "content": "<p>Share details about your shipping policies, item returns, or customer service.</p>"
+            "title": "When will my order arrive?",
+            "content": "<p>Standard delivery typically takes 3–5 business days. During the holiday season, high order volumes may cause an additional 1–2 business days of delay in some regions. We recommend ordering early to ensure your gifts arrive on time.<br/><br/><br/></p>"
           }
         },
         "text_7ADqHH": {
           "type": "text",
           "settings": {
-            "title": "Frequently asked question",
-            "content": "<p>Share details about your shipping policies, item returns, or customer service.</p>"
+            "title": "What is the last day to order for the holidays?",
+            "content": "<p>Standard delivery typically takes 3–5 business days. During the holiday season, high order volumes may cause an additional 1–2 business days of delay in some regions. We recommend ordering early to ensure your gifts arrive on time.<br/><br/></p>"
           }
         },
         "text_qVzjaD": {
           "type": "text",
           "settings": {
-            "title": "Frequently asked question",
-            "content": "<p>Share details about your shipping policies, item returns, or customer service.</p>"
+            "title": "Is shipping really free on cutting boards?",
+            "content": "<p>Yes! Enjoy free shipping on eligible cutting board orders. Simply add your favorite cutting board to your cart, and the shipping discount will be applied automatically at checkout, subject to applicable terms and conditions.<br/><br/></p>"
+          }
+        },
+        "text_jcEgjW": {
+          "type": "text",
+          "settings": {
+            "title": "Can I engrave a gift?",
+            "content": "<p>Absolutely! You can personalize selected cutting boards with custom engraving to make your gift extra special. Simply select the engraving option on the eligible product page and enter your desired text before adding the item to your cart.<br/><br/></p>"
+          }
+        },
+        "text_VL9QTL": {
+          "type": "text",
+          "settings": {
+            "title": "What is the return policy on holiday gifts?",
+            "content": "<p>We want you to be happy with your purchase! Eligible holiday gifts can be returned or exchanged according to our standard return policy. Personalized or custom-engraved products may have different return eligibility. Please review our return policy for complete details.</p>"
           }
         }
       },
       "block_order": [
         "text_3QQ7Eg",
         "text_7ADqHH",
-        "text_qVzjaD"
+        "text_qVzjaD",
+        "text_jcEgjW",
+        "text_VL9QTL"
       ],
       "name": "Accordion group",
       "settings": {
-        "title": "",
+        "title": "Holiday FAQ",
         "align_text": "text-left",
         "text_size": 1,
         "button_label": "",
