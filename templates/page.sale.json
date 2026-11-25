@@ -52,7 +52,7 @@
       "name": "Slideshow",
       "settings": {
         "autoplay": false,
-        "autoplay_speed": 1,
+        "autoplay_speed": 8,
         "dots_position": "dots--right",
         "height": "use_pixels_650",
         "width": "wrapper--none",
