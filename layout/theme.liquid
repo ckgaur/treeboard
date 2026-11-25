@@ -173,9 +173,9 @@
     });
   </script>
 
-  <!-- Theme Javascript (delayed: first interaction or setTimeout fallback) ========== -->
+  <!-- Theme Javascript (loads right after the DOM is ready, no interaction delay) ========== -->
   <script>
-    window.ebLoadDelayed(function () {
+    (function (init) { if (document.readyState === "loading") { document.addEventListener("DOMContentLoaded", init); } else { init(); } })(function () {
       var srcs = [];
       {%- if request.page_type contains 'customers/' %}
       srcs.push('{{ 'shopify_common.js' | shopify_asset_url }}');
@@ -246,21 +246,6 @@
         el.onload = el.onerror = done;
         document.head.appendChild(el);
       });
-    }, 8000);
-  </script>
-
-  <script>
-    // Speed: after the page has loaded, download (but do not run) the theme scripts at low priority,
-    // so the first tap/scroll only has to execute them instead of fetching them too.
-    window.addEventListener('load', function () {
-      var go = function () {
-        ['{{ 'lazysizes.js' | asset_url }}', '{{ 'vendor.js' | asset_url }}', '{{ 'theme.js' | asset_url }}', '{{ 'custom.js' | asset_url }}'].forEach(function (src) {
-          var l = document.createElement('link');
-          l.rel = 'preload'; l.as = 'script'; l.href = src; l.setAttribute('fetchpriority', 'low');
-          document.head.appendChild(l);
-        });
-      };
-      (window.requestIdleCallback || function (f) { setTimeout(f, 500); })(go);
     });
   </script>
 
