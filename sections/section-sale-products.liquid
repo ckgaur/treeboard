@@ -48,7 +48,7 @@
     --SP-PB: {{ section.settings.padding_bottom }}px;
   }
   #sale-products-{{ section.id }} { padding-top: var(--SP-PT); padding-bottom: var(--SP-PB); }
-  #sale-products-{{ section.id }} .sale-products__title { margin: 0 0 30px; }
+  #sale-products-{{ section.id }} .sale-products__title { margin: 0 0 30px; font-size: {{ section.settings.heading_size }}px; line-height: 1.2; }
   #sale-products-{{ section.id }} .sale-products__layout { display: flex; gap: 30px; align-items: flex-start; }
   #sale-products-{{ section.id }} .sale-products__filters { flex: 0 0 220px; }
   #sale-products-{{ section.id }} .sale-products__main { flex: 1 1 auto; min-width: 0; }
@@ -70,6 +70,9 @@
   #sale-products-{{ section.id }} .sale-products__filter-group label { display: flex; gap: 8px; align-items: center; margin-bottom: 6px; cursor: pointer; }
   #sale-products-{{ section.id }} .sale-products__empty { display: none; padding: 30px 0; }
   @media (max-width: 768px) {
+    #sale-products-{{ section.id }} .sale-products__title { font-size: {{ section.settings.heading_size_mobile }}px; margin-bottom: 20px; }
+    #sale-products-{{ section.id }} .sale-products__cell { width: {% if section.settings.mobile_columns == '2' %}50%{% else %}100%{% endif %}; padding: 0 6px 12px; }
+    #sale-products-{{ section.id }} .sale-products__grid { margin: 0 -6px; }
     #sale-products-{{ section.id }} .sale-products__layout { flex-direction: column; }
     #sale-products-{{ section.id }} .sale-products__filters { flex-basis: auto; width: 100%; }
   }
@@ -190,6 +193,36 @@
       "step": 1,
       "label": "Products per row",
       "default": 4
+    },
+    {
+      "type": "select",
+      "id": "mobile_columns",
+      "label": "Products per row on mobile",
+      "default": "2",
+      "options": [
+        {"value": "1", "label": "1 column"},
+        {"value": "2", "label": "2 columns"}
+      ]
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "min": 20,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "label": "Heading size (desktop)",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "heading_size_mobile",
+      "min": 16,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "label": "Heading size (mobile)",
+      "default": 26
     },
     {
       "type": "range",
