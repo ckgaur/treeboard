@@ -35,7 +35,7 @@
             "overlay_color": "#000000",
             "kicker": "<p>PRE-BLACK FRIDAY SALE!</p>",
             "heading": "<h2>Free Shipping on<br/>All Cutting Boards</h2>",
-            "text": "<p>Skip this year's pricey shipping.</p><p>Valid through Thanksgiving Day</p>",
+            "text": "<p>Skip this year's pricey shipping.</p><p>Valid through Thanksgiving Day.</p>",
             "button_text": "Shop Cutting Boards",
             "button_url": "https://treeboard.com/collections/cutting-boards",
             "button_size": "btn--large",
@@ -67,8 +67,8 @@
       ],
       "name": "Sale products",
       "settings": {
-        "title": "Holiday Sales",
-        "collection": "best-sellers",
+        "title": "Today's Discounted Products",
+        "collection": "cutting-boards",
         "only_sale": true,
         "show_filters": false,
         "empty_text": "No sale products found.",
@@ -94,21 +94,21 @@
           "type": "text",
           "settings": {
             "title": "When will my order arrive?",
-            "content": "<p>Standard delivery typically takes 3–5 business days. During the holiday season, high order volumes may cause an additional 1–2 business days of delay in some regions. We recommend ordering early to ensure your gifts arrive on time.<br/><br/><br/></p>"
+            "content": "<p>You will get an automated email when your order ships via UPS, USPS, etc. For ordindary cutting boards without engravings or finger joints, orders will ideally ship within two business days. &nbsp;The chatbot in the lower right may be able to help with your order or connect you with Will.<br/><br/></p>"
           }
         },
         "text_7ADqHH": {
           "type": "text",
           "settings": {
             "title": "What is the last day to order for the holidays?",
-            "content": "<p>Standard delivery typically takes 3–5 business days. During the holiday season, high order volumes may cause an additional 1–2 business days of delay in some regions. We recommend ordering early to ensure your gifts arrive on time.<br/><br/></p>"
+            "content": "<p>For uncustomized orders, the second week in December will get orders to most U.S. locations by Christmas Day. We are an active workshop with two woodworkers, and we will seek to get all items to you and your loved ones. Please order early when possible!<br/><br/></p>"
           }
         },
         "text_qVzjaD": {
           "type": "text",
           "settings": {
             "title": "Is shipping really free on cutting boards?",
-            "content": "<p>Yes! Enjoy free shipping on eligible cutting board orders. Simply add your favorite cutting board to your cart, and the shipping discount will be applied automatically at checkout, subject to applicable terms and conditions.<br/><br/></p>"
+            "content": "<p>Through Thanksgiving Day, we are offering free shipping. After that, only very large orders will get free shipping.<br/><br/></p>"
           }
         },
         "text_jcEgjW": {
@@ -122,7 +122,7 @@
           "type": "text",
           "settings": {
             "title": "What is the return policy on holiday gifts?",
-            "content": "<p>We want you to be happy with your purchase! Eligible holiday gifts can be returned or exchanged according to our standard return policy. Personalized or custom-engraved products may have different return eligibility. Please review our return policy for complete details.</p>"
+            "content": "<p>Please see the <a href=\"https://treeboard.com/pages/shipping-returns\" target=\"_blank\" title=\"https://treeboard.com/pages/shipping-returns\">shipping and returns</a> page. You can return unushed or lightly used items for 30 days.</p>"
           }
         }
       },
