@@ -130,7 +130,9 @@
         "text_jcEgjW",
         "text_VL9QTL"
       ],
-      "custom_css": [],
+      "custom_css": [
+        "#sale .section-faq {background-color: #fff9eb;}"
+      ],
       "name": "Accordion group",
       "settings": {
         "title": "Holiday FAQ",
@@ -147,12 +149,30 @@
         "padding_top": 36,
         "padding_bottom": 36
       }
+    },
+    "section_newsletter_hJbRgG": {
+      "type": "section-newsletter",
+      "name": "Newsletter",
+      "settings": {
+        "enable_klaviyo": true,
+        "title": "Newsletter",
+        "richtext": "<p>Subscribe to get special offers, free giveaways, and once-in-a-lifetime deals.  We promise to send emails you will love.</p>",
+        "success": "Success! Use code CLUB10 to save 10%",
+        "text_color": "text--neutral",
+        "color_bg": "palette--light bg--neutral",
+        "button_color": "btn--neutral",
+        "button_style": "btn--soft",
+        "width": "wrapper",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
     }
   },
   "order": [
     "main",
     "section_slideshow_gKFVgt",
     "section_sale_products_8mbFM8",
-    "section_accordion_fngaA4"
+    "section_accordion_fngaA4",
+    "section_newsletter_hJbRgG"
   ]
 }
