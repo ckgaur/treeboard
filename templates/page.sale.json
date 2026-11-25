@@ -11,10 +11,72 @@
   "sections": {
     "main": {
       "type": "page-default",
-      "settings": {}
+      "disabled": true,
+      "settings": {
+        "show_title": true,
+        "show_content": true,
+        "alignment": "text-left",
+        "page_nav": "",
+        "bg": "palette--light bg--neutral",
+        "width": "wrapper",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "section_slideshow_gKFVgt": {
+      "type": "section-slideshow",
+      "blocks": {
+        "image_yUXFkF": {
+          "type": "image",
+          "settings": {
+            "overlay_opacity": 15,
+            "overlay_color": "#000",
+            "kicker": "<p>Introducing</p>",
+            "heading": "<p>Image banner</p>",
+            "text": "<p>This area is used to describe your store</p>",
+            "button_text": "Learn More",
+            "button_url": "",
+            "button_size": "btn--large",
+            "button_style": "hero__btn btn",
+            "button_color": "btn--white",
+            "image_bottom_link": ""
+          }
+        },
+        "image_fiMzxH": {
+          "type": "image",
+          "settings": {
+            "overlay_opacity": 15,
+            "overlay_color": "#000",
+            "kicker": "<p>Introducing</p>",
+            "heading": "<p>Image banner</p>",
+            "text": "<p>This area is used to describe your store</p>",
+            "button_text": "Learn More",
+            "button_url": "",
+            "button_size": "btn--large",
+            "button_style": "hero__btn btn",
+            "button_color": "btn--white",
+            "image_bottom_link": ""
+          }
+        }
+      },
+      "block_order": [
+        "image_yUXFkF",
+        "image_fiMzxH"
+      ],
+      "name": "Slideshow",
+      "settings": {
+        "autoplay": false,
+        "autoplay_speed": 8,
+        "dots_position": "dots--right",
+        "height": "use_screen_two_thirds",
+        "width": "wrapper--none",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
     }
   },
   "order": [
-    "main"
+    "main",
+    "section_slideshow_gKFVgt"
   ]
 }
