@@ -130,9 +130,7 @@
         "text_jcEgjW",
         "text_VL9QTL"
       ],
-      "custom_css": [
-        ".section-faq {background-color: #fff9eb!important;}"
-      ],
+      "custom_css": [],
       "name": "Accordion group",
       "settings": {
         "title": "Holiday FAQ",
