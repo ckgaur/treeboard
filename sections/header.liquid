@@ -8,6 +8,21 @@
     assign transparent_header = true
   endif
 
+  if section.settings.transparent_templates != blank and transparent_header == false
+    assign current_template_full = template.name
+    if template.suffix != blank
+      assign current_template_full = template.name | append: '.' | append: template.suffix
+    endif
+    assign transparent_list = section.settings.transparent_templates | downcase | replace: ' ', '' | split: ','
+    for item in transparent_list
+      if item == current_template_full or item == template.name
+        assign transparent_header = true
+      elsif page.handle != blank and item == page.handle
+        assign transparent_header = true
+      endif
+    endfor
+  endif
+
   assign width_wrapper_class = 'wrapper'
   if section.settings.full_width
     assign width_wrapper_class = 'wrapper--full'
@@ -582,6 +597,12 @@
       "id": "transparent_collection",
       "label": "Enable on Collection pages",
       "default": false
+    },
+    {
+      "type": "text",
+      "id": "transparent_templates",
+      "label": "Enable on other templates / pages",
+      "info": "Comma-separated. Use a template name (e.g. page.lookbook, product, page, blog, article) or a page handle (e.g. about-us). Leave empty to disable."
     },
     {
       "type": "image_picker",
