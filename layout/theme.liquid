@@ -17,6 +17,12 @@
   <link rel="preconnect" href="https://fonts.shopify.com" crossorigin>
   <link rel="preconnect" href="https://monorail-edge.shopifysvc.com" crossorigin>
 
+  <!-- Start downloading the theme scripts immediately (menu, header and sliders depend on them) -->
+  <link rel="preload" as="script" href="{{ 'lazysizes.js' | asset_url }}">
+  <link rel="preload" as="script" href="{{ 'vendor.js' | asset_url }}">
+  <link rel="preload" as="script" href="{{ 'theme.js' | asset_url }}">
+  <link rel="preload" as="script" href="{{ 'custom.js' | asset_url }}">
+
   <script>
     // Speed: run a callback after first user interaction (or 12s after load)
     window.dataLayer = window.dataLayer || [];
