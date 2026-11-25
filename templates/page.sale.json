@@ -86,14 +86,14 @@
         "text_n9Yz9Q": {
           "type": "text",
           "settings": {
-            "title": "Frequently asked question",
-            "content": "<p>Share details about your shipping policies, item returns, or customer service.</p>"
+            "title": "When will my order arrive?",
+            "content": "<p>Standard delivery takes 3–5 business days. Holiday demand may add 1–2 days in some regions.</p>"
           }
         },
         "text_Mz8nRM": {
           "type": "text",
           "settings": {
-            "title": "Frequently asked question",
+            "title": "What is the last day to order for the holidays?",
             "content": "<p>Share details about your shipping policies, item returns, or customer service.</p>"
           }
         },
