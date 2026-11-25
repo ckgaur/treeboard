@@ -1362,3 +1362,7 @@ html.eb-sections-init .main-content > .shopify-section {
   }
 
 }
+
+#sale .section-faq {
+  background-color: #fff9eb;
+}
