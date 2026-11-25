@@ -63,7 +63,7 @@
     "section_sale_products_8mbFM8": {
       "type": "section-sale-products",
       "custom_css": [
-        "#sale .section-faq {background-color: #FFF9EB;}"
+        "#sale .section-faq {background-color: #fff9eb;}"
       ],
       "name": "Sale products",
       "settings": {
@@ -129,6 +129,9 @@
         "text_qVzjaD",
         "text_jcEgjW",
         "text_VL9QTL"
+      ],
+      "custom_css": [
+        ".section-faq {background-color: #fff9eb!important;}"
       ],
       "name": "Accordion group",
       "settings": {
