@@ -1,0 +1,289 @@
+<!-- /sections/section-sale-products.liquid -->
+
+{%- liquid
+  assign sale_collection = collections[section.settings.collection]
+  assign cols = section.settings.grid
+  case cols
+    when 2
+      assign grid_strings = 'medium-up--one-half small--one-half mobile--one-whole'
+    when 3
+      assign grid_strings = 'large-up--one-third medium--one-half small--one-half mobile--one-whole'
+    else
+      assign grid_strings = 'large-up--one-quarter medium--one-half small--one-half mobile--one-whole'
+  endcase
+
+  assign limit = section.settings.limit | plus: 0
+  assign shown = 0
+  assign types = ''
+  assign has_filters = section.settings.show_filters
+-%}
+
+{%- capture products_markup -%}
+  {%- for product in sale_collection.products -%}
+    {%- if shown >= limit -%}{%- break -%}{%- endif -%}
+    {%- assign is_sale = false -%}
+    {%- if product.compare_at_price > product.price -%}{%- assign is_sale = true -%}{%- endif -%}
+    {%- if section.settings.only_sale and is_sale == false -%}{%- continue -%}{%- endif -%}
+    {%- assign shown = shown | plus: 1 -%}
+    {%- assign badge_text = blank -%}
+    {%- if section.settings.show_badge and is_sale -%}
+      {%- assign badge_text = section.settings.badge_text | default: 'On Sale' -%}
+    {%- endif -%}
+    {%- assign type_handle = product.type | handle -%}
+    {%- unless types contains type_handle -%}
+      {%- assign type_label = product.type | strip_html | replace: '|', ' ' -%}
+      {%- assign types = types | append: type_handle | append: '|' | append: type_label | append: '||' -%}
+    {%- endunless -%}
+    <div class="sale-products__cell {{ grid_strings }}" data-sale-item data-type="{{ type_handle }}" data-available="{{ product.available }}">
+      {%- render 'product-grid-item', product: product, grid_strings: 'one-whole', badge_string: badge_text -%}
+    </div>
+  {%- endfor -%}
+{%- endcapture -%}
+
+<style>
+  #sale-products-{{ section.id }} {
+    --SP-BADGE-BG: {{ section.settings.badge_bg }};
+    --SP-BADGE-TEXT: {{ section.settings.badge_text_color }};
+    --SP-PT: {{ section.settings.padding_top }}px;
+    --SP-PB: {{ section.settings.padding_bottom }}px;
+  }
+  #sale-products-{{ section.id }} { padding-top: var(--SP-PT); padding-bottom: var(--SP-PB); }
+  #sale-products-{{ section.id }} .sale-products__title { margin: 0 0 30px; }
+  #sale-products-{{ section.id }} .sale-products__layout { display: flex; gap: 30px; align-items: flex-start; }
+  #sale-products-{{ section.id }} .sale-products__filters { flex: 0 0 220px; }
+  #sale-products-{{ section.id }} .sale-products__main { flex: 1 1 auto; min-width: 0; }
+  #sale-products-{{ section.id }} .sale-products__grid { display: flex; flex-wrap: wrap; margin: 0 -12px; }
+  #sale-products-{{ section.id }} .sale-products__cell { box-sizing: border-box; padding: 0 12px 24px; }
+  #sale-products-{{ section.id }} .sale-products__cell[hidden] { display: none; }
+  #sale-products-{{ section.id }} .sale-products__cell .product-grid-item {
+    position: relative; height: 100%; background: #fff; border: 1px solid rgba(0,0,0,.08);
+    border-radius: 8px; overflow: hidden; padding-bottom: 20px;
+  }
+  #sale-products-{{ section.id }} .sale-products__cell .grid__item { width: 100%; float: none; padding: 0; }
+  #sale-products-{{ section.id }} .product__badge {
+    top: 0; left: 0; right: auto; bottom: auto; position: absolute; z-index: 2;
+    background: var(--SP-BADGE-BG); color: var(--SP-BADGE-TEXT);
+    padding: 10px 15px; border-radius: 0 0 8px 0; line-height: 1.2;
+  }
+  #sale-products-{{ section.id }} .sale-products__filter-group { margin-bottom: 24px; }
+  #sale-products-{{ section.id }} .sale-products__filter-group h4 { margin: 0 0 10px; }
+  #sale-products-{{ section.id }} .sale-products__filter-group label { display: flex; gap: 8px; align-items: center; margin-bottom: 6px; cursor: pointer; }
+  #sale-products-{{ section.id }} .sale-products__empty { display: none; padding: 30px 0; }
+  @media (max-width: 768px) {
+    #sale-products-{{ section.id }} .sale-products__layout { flex-direction: column; }
+    #sale-products-{{ section.id }} .sale-products__filters { flex-basis: auto; width: 100%; }
+  }
+</style>
+
+<div
+  id="sale-products-{{ section.id }}"
+  class="sale-products {{ section.settings.color_bg }}"
+  data-section-id="{{ section.id }}"
+  data-section-type="sale-products"
+>
+  <div class="{{ section.settings.width }}">
+    {%- if section.settings.title != blank -%}
+      <h2 class="sale-products__title h3">{{ section.settings.title | escape }}</h2>
+    {%- endif -%}
+
+    <div class="sale-products__layout">
+      {%- if has_filters -%}
+        <aside class="sale-products__filters" data-sale-filters>
+          {%- assign type_list = types | split: '||' -%}
+          {%- if type_list.size > 1 -%}
+            <div class="sale-products__filter-group">
+              <h4>{{ 'Product type' }}</h4>
+              {%- for t in type_list -%}
+                {%- assign parts = t | split: '|' -%}
+                {%- if parts[0] != blank -%}
+                  <label><input type="checkbox" data-filter-type value="{{ parts[0] }}"> {{ parts[1] | default: 'Other' | escape }}</label>
+                {%- endif -%}
+              {%- endfor -%}
+            </div>
+          {%- endif -%}
+          <div class="sale-products__filter-group">
+            <h4>Availability</h4>
+            <label><input type="checkbox" data-filter-available> In stock only</label>
+          </div>
+        </aside>
+      {%- endif -%}
+
+      <div class="sale-products__main">
+        {%- if shown > 0 -%}
+          <div class="sale-products__grid" data-sale-grid>
+            {{ products_markup }}
+          </div>
+          <p class="sale-products__empty" data-sale-empty>No products match your selection.</p>
+        {%- else -%}
+          <p>{{ section.settings.empty_text | escape }}</p>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</div>
+
+{%- if has_filters and shown > 0 -%}
+  <script>
+    (function () {
+      var root = document.getElementById('sale-products-{{ section.id }}');
+      if (!root) return;
+      var items = root.querySelectorAll('[data-sale-item]');
+      var empty = root.querySelector('[data-sale-empty]');
+      var inputs = root.querySelectorAll('[data-sale-filters] input');
+      function apply() {
+        var types = [].slice.call(root.querySelectorAll('[data-filter-type]:checked')).map(function (i) { return i.value; });
+        var inStock = root.querySelector('[data-filter-available]');
+        inStock = inStock && inStock.checked;
+        var visible = 0;
+        items.forEach(function (el) {
+          var ok = (!types.length || types.indexOf(el.getAttribute('data-type')) > -1) &&
+                   (!inStock || el.getAttribute('data-available') === 'true');
+          el.hidden = !ok;
+          if (ok) visible++;
+        });
+        if (empty) empty.style.display = visible ? 'none' : 'block';
+      }
+      inputs.forEach(function (i) { i.addEventListener('change', apply); });
+    })();
+  </script>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Sale products",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Holiday Sales"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    },
+    {
+      "type": "checkbox",
+      "id": "only_sale",
+      "label": "Show only products with a compare-at price (on sale)",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_filters",
+      "label": "Show filters",
+      "info": "Filters by product type and availability.",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "empty_text",
+      "label": "Text when no products found",
+      "default": "No sale products found."
+    },
+    {
+      "type": "range",
+      "id": "grid",
+      "min": 2,
+      "max": 4,
+      "step": 1,
+      "label": "Products per row",
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "limit",
+      "min": 1,
+      "max": 50,
+      "step": 1,
+      "label": "Product limit",
+      "default": 12
+    },
+    {
+      "type": "header",
+      "content": "Sale badge"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_badge",
+      "label": "Show sale badge",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "badge_text",
+      "label": "Badge text",
+      "default": "On Sale"
+    },
+    {
+      "type": "color",
+      "id": "badge_bg",
+      "label": "Badge background",
+      "default": "#c8102e"
+    },
+    {
+      "type": "color",
+      "id": "badge_text_color",
+      "label": "Badge text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "color_bg",
+      "label": "Background color",
+      "default": "palette--light bg--neutral",
+      "options": [
+        {"value": "palette--light bg--neutral", "label": "Default"},
+        {"value": "palette--light bg--accent", "label": "Light"},
+        {"value": "palette--dark bg--invert", "label": "Dark"},
+        {"value": "palette--dark bg--invert--accent", "label": "Dark accent"}
+      ]
+    },
+    {
+      "type": "select",
+      "id": "width",
+      "label": "Width",
+      "default": "wrapper",
+      "options": [
+        {"value": "wrapper--full", "label": "Full width padded"},
+        {"value": "wrapper", "label": "Page width"},
+        {"value": "wrapper--narrow", "label": "Page width narrow"}
+      ]
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 180,
+      "step": 2,
+      "unit": "px",
+      "label": "Padding top",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 180,
+      "step": 2,
+      "unit": "px",
+      "label": "Padding bottom",
+      "default": 36
+    }
+  ],
+  "presets": [
+    {
+      "name": "Sale products",
+      "category": "Collection"
+    }
+  ],
+  "disabled_on": {
+    "groups": ["header", "aside"]
+  }
+}
+{% endschema %}
