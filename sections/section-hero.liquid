@@ -1,5 +1,16 @@
 <!-- /sections/section-hero.liquid -->
 
+{%- assign is_first_section = false -%}
+{%- if section.index == 1 -%}{%- assign is_first_section = true -%}{%- endif -%}
+{%- if is_first_section and section.settings.image != blank -%}
+  {%- if section.settings.mobile_image != blank -%}
+    <link rel="preload" as="image" href="{{ section.settings.mobile_image | img_url: '1296x' }}" media="(max-width: 767px)" fetchpriority="high">
+    <link rel="preload" as="image" href="{{ section.settings.image | img_url: '1296x' }}" media="(min-width: 768px)" fetchpriority="high">
+  {%- else -%}
+    <link rel="preload" as="image" href="{{ section.settings.image | img_url: '1296x' }}" fetchpriority="high">
+  {%- endif -%}
+{%- endif -%}
+
 <section
   class="section-hero"
   data-section-id="{{ section.id }}"
@@ -44,7 +55,7 @@
                     {%- if block.settings.image_link != blank -%}<a href="{{ block.settings.image_link }}">{%- endif -%}
                     {%- if block.settings.image != blank -%}
                       <img
-                        loading="lazy"
+                        {% if is_first_section %}loading="eager" fetchpriority="high"{% else %}loading="lazy"{% endif %}
                         width="{{ block.settings.image.width }}"
                         height="{{ block.settings.image.height }}"
                         alt="{{ block.settings.image.alt | strip_html | escape }}"
@@ -87,11 +98,11 @@
         {% assign desktop_image_classes = desktop_image_classes | append: ' medium-up--show hide' %}
 
         {% capture mobile_image %}
-          {% render 'image-background', img_object: section.settings.mobile_image, frame_height_class: mobile_image_classes %}
+          {% render 'image-background', img_object: section.settings.mobile_image, frame_height_class: mobile_image_classes, eager: is_first_section %}
         {% endcapture %}
       {% endif %}
 
-      {% render 'image-background', img_object: section.settings.image, frame_height_class: desktop_image_classes %}
+      {% render 'image-background', img_object: section.settings.image, frame_height_class: desktop_image_classes, eager: is_first_section %}
 
       {{ mobile_image }}
 
@@ -105,6 +116,7 @@
     </div>
   </div>
 </section>
+{% render 'early-overlay-vars' %}
 
 {% schema %}
 {

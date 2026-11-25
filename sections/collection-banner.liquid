@@ -50,7 +50,7 @@
           </div>
         </div>
         <div class="image-overlay" style="--bg:{{ section.settings.overlay_color }}; opacity:{{ section.settings.overlay_opacity | times: 0.01 }};"></div>
-        {% render 'image-background', img_object: collection.image, frame_height_class: section.settings.image_height %}
+        {% render 'image-background', img_object: collection.image, frame_height_class: section.settings.image_height, eager: true %}
       </div>
     {% endif %}
 

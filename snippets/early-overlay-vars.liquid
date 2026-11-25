@@ -1,0 +1,50 @@
+<!-- /snippets/early-overlay-vars.liquid -->
+{% comment %}
+  Speed: theme.js is loaded late (first interaction / fallback timer). It normally sets the
+  banner height and the header-overlay padding, which made the banner content jump a few
+  seconds after load. This tiny inline script applies the same values immediately, right
+  after the banner markup, so the layout is already final when it first paints.
+
+  Render it directly after the banner's root element:
+  {% render 'early-overlay-vars' %}
+{% endcomment %}
+<script>
+  (function () {
+    try {
+      var el = document.currentScript && document.currentScript.previousElementSibling;
+      if (!el || !el.hasAttribute('data-overlay-header')) return;
+      var wrap = el.closest('.shopify-section');
+      var main = document.querySelector('.main-content');
+      if (!wrap || !main || main.firstElementChild !== wrap) return;
+
+      var h = function (sel) { var n = document.querySelector(sel); return n ? n.offsetHeight : 0; };
+      var wh = window.innerHeight;
+      var ann = h('#shopify-section-announcement');
+      var menu = h('[data-header-height]');
+      var root = document.documentElement.style;
+
+      root.setProperty('--full-screen', wh + 'px');
+      root.setProperty('--three-quarters', wh * 0.75 + 'px');
+      root.setProperty('--two-thirds', wh * 0.66 + 'px');
+      root.setProperty('--one-half', wh * 0.5 + 'px');
+      root.setProperty('--one-third', wh * 0.33 + 'px');
+      root.setProperty('--one-fifth', wh * 0.2 + 'px');
+      root.setProperty('--menu-height', menu + 'px');
+      root.setProperty('--announcement-height', ann + 'px');
+      root.setProperty('--header-height', menu + ann + 'px');
+
+      var t = document.querySelector('[data-header-transparent]');
+      var transparent = t && t.getAttribute('data-header-transparent') !== 'false';
+      var prevent = main.querySelector(':scope > .shopify-section:first-child [data-prevent-transparent-header]');
+      if (prevent) return;
+
+      if (transparent) {
+        el.style.setProperty('--full-screen', wh - ann + 'px');
+        el.style.setProperty('--header-padding', menu + ann + 'px');
+        el.classList.add('has-overlay');
+      } else {
+        el.style.setProperty('--full-screen', wh - (menu + ann) + 'px');
+      }
+    } catch (e) {}
+  })();
+</script>
