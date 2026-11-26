@@ -49,6 +49,9 @@
       "block_order": [
         "image_bphfDB"
       ],
+      "custom_css": [
+        ".btn--white.btn{background-color:#C8102E}"
+      ],
       "name": "Slideshow",
       "settings": {
         "autoplay": false,
