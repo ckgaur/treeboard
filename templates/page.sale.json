@@ -50,7 +50,8 @@
         "image_bphfDB"
       ],
       "custom_css": [
-        ".btn--white.btn{background-color:#C8102E}"
+        ".btn--white.btn {background-color: #c8102e;}",
+        ".btn--white.btn:hover {background-color: #ffffff !important; border-color: #c8102e !important; color: #ffffff !important; transition: all 0.3s ease-in-out;}"
       ],
       "name": "Slideshow",
       "settings": {
