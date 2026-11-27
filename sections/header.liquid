@@ -68,6 +68,7 @@
         assign toolbar_text = block.settings.announcement_text
          assign toolbar_text2 = block.settings.announcement_text2
           assign toolbar_text3 = block.settings.announcement_text3
+        assign toolbar_text4 = block.settings.announcement_text4
         assign has_toolbar_text = true
         assign has_toolbar = true
       endif
@@ -187,6 +188,11 @@
                 <div data-ticker-text>
                   <span>{{ toolbar_text3 }}</span>
                 </div>
+                {% if toolbar_text4 != blank %}
+                  <div data-ticker-text>
+                    <span>{{ toolbar_text4 }}</span>
+                  </div>
+                {% endif %}
               </div>
             </div>
           {% endif %}
@@ -637,6 +643,11 @@
           "id": "announcement_text3",
           "label": "Text",
           "default": "<p>This is announcement <em><strong>richtext<\/strong><\/em> from the header toolbar block<\/p>"
+        },
+        {
+          "type": "liquid",
+          "id": "announcement_text4",
+          "label": "Text 4"
         },
         {
           "type": "header",
