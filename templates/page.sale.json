@@ -51,7 +51,7 @@
       ],
       "custom_css": [
         ".btn--white.btn {background-color: #c8102e;}",
-        ".btn--white.btn:hover {background-color: #ffffff !important; border-color: #c8102e !important; }"
+        ".btn--white.btn:hover {background-color: #ffffff !important; border-color: #c8102e !important;}"
       ],
       "name": "Slideshow",
       "settings": {
@@ -71,9 +71,9 @@
       ],
       "name": "Sale products",
       "settings": {
-        "title": "Today's Discounted Products",
+        "title": "Save on cutting boards",
         "collection": "cutting-boards",
-        "only_sale": true,
+        "only_sale": false,
         "show_filters": false,
         "empty_text": "No sale products found.",
         "grid": 4,
