@@ -98,7 +98,7 @@
           "type": "text",
           "settings": {
             "title": "When will my order arrive?",
-            "content": "<p>You will get an automated email when your order ships via UPS, USPS, etc. For ordindary cutting boards without engravings or finger joints, orders will ideally ship within two business days. &nbsp;The chatbot in the lower right may be able to help with your order or connect you with Will.<br/><br/></p>"
+            "content": "<p>You will get an automated email when your order ships via UPS, USPS, etc. For ordinary cutting boards without engravings or finger joints, orders will ideally ship within two business days. &nbsp;The chatbot in the lower right may be able to help with your order or connect you with Will.<br/><br/></p>"
           }
         },
         "text_7ADqHH": {
@@ -126,7 +126,7 @@
           "type": "text",
           "settings": {
             "title": "What is the return policy on holiday gifts?",
-            "content": "<p>Please see the <a href=\"https://treeboard.com/pages/shipping-returns\" target=\"_blank\" title=\"https://treeboard.com/pages/shipping-returns\">shipping and returns</a> page. You can return unushed or lightly used items for 30 days.</p>"
+            "content": "<p>Please see the <a href=\"https://treeboard.com/pages/shipping-returns\" target=\"_blank\" title=\"https://treeboard.com/pages/shipping-returns\">shipping and returns</a> page. You can return unused or lightly used items for 30 days.</p>"
           }
         }
       },
