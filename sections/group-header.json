@@ -17,8 +17,8 @@
         "82ae773f-e663-4a2f-b69b-eb252b89889e": {
           "type": "toolbar",
           "settings": {
-            "announcement_text": "<p><img src=\"https://cdn.shopify.com/s/files/1/0807/9133/9240/files/Frame_5.png?v=1789983495\" width=\"20\" class=\"tool-icon\" />Free Shipping Until Thanksgiving!</p>",
-            "announcement_text2": "<p><img src=\"https://cdn.shopify.com/s/files/1/0807/9133/9240/files/Frame_6.png?v=1789983495\" width=\"20\"/ class=\"tool-icon\">Deals on Small Cutting Boards</p>",
+            "announcement_text": "<p><img src=\"https://cdn.shopify.com/s/files/1/0807/9133/9240/files/Frame_5.png?v=1789983495\" width=\"20\" class=\"tool-icon\" />Free Shipping Through Thanksgiving!</p>",
+            "announcement_text2": "<p><img src=\"https://cdn.shopify.com/s/files/1/0807/9133/9240/files/Frame_6.png?v=1789983495\" width=\"20\"/ class=\"tool-icon\">Free Shipping Over $250</p>",
             "announcement_text3": "<p><img src=\"https://cdn.shopify.com/s/files/1/0807/9133/9240/files/Frame_7.png?v=1789983495\" width=\"20\"/ class=\"tool-icon\">Engrave a Gift!</p>",
             "secondary_linklist": "",
             "show_menu_desktop": true,
