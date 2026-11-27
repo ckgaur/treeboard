@@ -18,7 +18,7 @@
           "type": "toolbar",
           "settings": {
             "announcement_text": "<p>\n  <a href=\"/pages/sale\" style=\"text-decoration: none; color: inherit;\">\n    <img src=\"https://cdn.shopify.com/s/files/1/0807/9133/9240/files/Frame_6.png?v=1789983495\"\n         width=\"20\"\n         class=\"tool-icon\"\n         alt=\"Sale Icon\"/>\n    <strong>BLACK FRIDAY SALE!</strong>\n  </a>\n</p>\n<p>",
-            "announcement_text2": "<p><img src=\"https://cdn.shopify.com/s/files/1/0807/9133/9240/files/Frame_5.png?v=1789983495\" width=\"20\" class=\"tool-icon\" />Free Shipping on Orders Over $250</p>",
+            "announcement_text2": "<p><img src=\"https://cdn.shopify.com/s/files/1/0807/9133/9240/files/Frame_5.png?v=1789983495\" width=\"20\" class=\"tool-icon\" />Free Shipping on Orders Over $300</p>",
             "announcement_text3": "<p><img src=\"https://cdn.shopify.com/s/files/1/0807/9133/9240/files/Frame_7.png?v=1789983495\" width=\"20\"/ class=\"tool-icon\">Engrave a Gift!</p>",
             "announcement_text4": "",
             "secondary_linklist": "",
